@@ -1,48 +1,71 @@
 <template>
-  <div id="app">
-    <div class="box">
-      <header class="head">
-        <span>LOGO</span>
-        <ul class="list">
-          <li>
-            <router-link to="/">Home</router-link>
-          </li>
-          <li>
-            <router-link to="/about">About</router-link>
-          </li>
-          <li>
-            <router-link to="/index">主页</router-link>
-          </li>
-        </ul>
-        <div class="right">tu</div>
-      </header>
-      <router-view />
-    </div>
-    <div class="bgcover"></div>
+  <div id="app" :class="the_?'dark':'light'">
+    <header class="head">
+      <span>LOGO</span>
+      <ul class="list">
+        <li>
+          <router-link to="/">Home</router-link>
+        </li>
+        <li>
+          <router-link to="/about">About</router-link>
+        </li>
+        <li>
+          <router-link to="/index">主页</router-link>
+        </li>
+      </ul>
+      <div class="right" @click="changeThems"> <i class="blog icon-theme"></i> </div>
+    </header>
+    <router-view />
   </div>
 </template>
 
-<style>
-a:active {
+<style lang="scss">
+$fff:#fff;
+$black:lightslategrey;
+/* a:active {
   color: #fff;
-  
 }
-a{
+a {
   color: #fff;
-  text-decoration:none;
-}
+  text-decoration: none;
+} */
 #app {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #fff;
   width: 100%;
-  height: 100vh;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 100% auto;
-  background-image: url("../src/assets/share.jpg");
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x:hidden ;
+
+}
+.dark {
+  background: $black;
+  color: $fff;
+  transition: all 0.3s linear;
+  a{
+    text-decoration: none;
+    color: $fff;
+  }
+  a:active{
+    color: $fff;
+  }
+}
+.light {
+  transition: all 0.3s linear;
+  background: $fff;
+  color: $black;
+  a{
+    text-decoration: none;
+    color: $black;
+  }
+  a:active{
+    color: $black;
+  }
 }
 .bgcover {
   position: fixed;
@@ -57,27 +80,7 @@ a{
 router-link {
   color: #fff;
 }
-.box {
-  position: absolute;
-  height: 60vh;
-  top: 18vh;
-  width: 60%;
-  left: 20%;
-  border-radius: 1.25rem;
-  border: 0.3125rem solid #111;
-  z-index: 2;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 100% auto;
-  background-image: url("../src/assets/share.jpg");
-  box-shadow: 0 20px 18px -10px rgb(85, 85, 85);
-  color: #fff;
-  overflow-x: hidden;
-  overflow-y: scroll;
-}
-.box::-webkit-scrollbar {
-  width: 0 !important;
-}
+
 .head {
   border-bottom: 1px solid #fff;
   height: 5rem;
@@ -102,6 +105,11 @@ router-link {
 }
 .head .right {
   flex: 1;
+  align-self: center;
+  font-size: 2rem;
+  transform-origin: center;
+  transform: rotate(180deg);
+  // transition:  0.2s ease-out;
 }
 #nav {
   padding: 30px;
@@ -116,3 +124,22 @@ router-link {
   color: #42b983;
 }
 </style>
+
+<script>
+import { onMounted,ref } from "vue";
+export default {
+  setup() {
+    const the_ = ref(false)
+    onMounted(() => {
+      console.log("onMounted");
+    });
+
+    const changeThems = () => {
+      console.log("dianji");
+      the_.value = !the_.value;
+    };
+
+    return { the_, changeThems };
+  }
+};
+</script>
