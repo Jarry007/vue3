@@ -12,8 +12,9 @@
         >
           <div class="pic">
             <img :src="i.pic" alt />
-            <div class="danmu" :style="index===showDanmu?'transform: translateY(0);':''">
-              <Danmu :list="i.danmu"></Danmu>
+            <div class="danmu" id='danmuC' :style="index===showDanmu?'transform: translateY(0);':''">
+              <!-- <div class="danmu" id='danmuC'  style="transform: translateY(0)"> -->
+              <Danmu :list="i.danmu" :wid='width_' :hei='height_' :name="`danmu${index}`" :scroll='scr_'></Danmu>
             </div>
           </div>
           <div class="title">{{i.title}}</div>
@@ -27,20 +28,27 @@
       <section class="list-side">
         <div class="recommend">
           <div class="title">推荐</div>
-          <block v-for="(i,index) in recom" :key="i.rank">
+          <div v-for="(i,index) in recom" :key="i.rank">
             <Tips v-show="index===showTips" :text="i.title"></Tips>
             <div class="recom-line" @click="showDetail(index)" >
               <span :style="`background:${rank[index].color}`">{{rank[index].text}}</span>
               {{i.title}}
             </div>
-          </block>
+          </div>
         </div>
       </section>
     </div>
   </div>
 </template>
 <script>
-import { reactive, toRefs } from "vue";
+function querySize(name){
+  const dom = document.querySelector(`#${name}`)
+  let wid = dom.clientWidth
+  let hei = dom.clientHeight
+  console.log('indexDom',wid,hei)
+  return {wid,hei}
+}
+import { reactive, toRefs, onMounted,ref } from "vue";
 import Danmu from "../components/Danmu.vue";
 import Tips from "@/components/tips.vue";
 export default {
@@ -57,22 +65,30 @@ export default {
             {
               avatar:
                 "https://blogai.cn/static/uploads/82f6bfa51778a0c55d42a334321cabf1/20200508112958_70.png",
-              say: "君不见黄河之水天上来"
+              say: "君不见黄河之水天上来",
+              right:80,
+              top:20
             },
             {
               avatar:
                 "https://blogai.cn/static/uploads/82f6bfa51778a0c55d42a334321cabf1/20200508112958_70.png",
-              say: "奔流到海不复回"
+              say: "奔流到海不复回",
+              right:60,
+              top:40
             },
             {
               avatar:
                 "https://blogai.cn/static/uploads/82f6bfa51778a0c55d42a334321cabf1/20200508112958_70.png",
-              say: "君不见高堂明镜悲白发"
+              say: "君不见高堂明镜悲白发",
+              right:40,
+              top:60
             },
             {
               avatar:
                 "https://blogai.cn/static/uploads/82f6bfa51778a0c55d42a334321cabf1/20200508112958_70.png",
-              say: "朝如青丝暮成雪"
+              say: "朝如青丝暮成雪",
+              right:20,
+              top:80
             }
           ],
           pic:
@@ -115,13 +131,17 @@ export default {
       ]
     });
     const now_ = new Date().toLocaleString();
+    let scr_ = ref(false)
     data.now_ = now_;
     const enter = e => {
+      console.log('进入',e)
+      scr_ = true
       data.showDanmu = e;
     };
 
     const leave = () => {
       // console.log('lika')
+      scr_ = false
       data.showDanmu = "";
     };
 
@@ -129,8 +149,16 @@ export default {
 
       data.showTips = data.showTips === e?'':e
     };
+    const width_ = ref(0)
+    const height_ = ref(0)
+    onMounted(()=>{
+      let {wid,hei} =  querySize('danmuC')
+      console.log(wid,hei)
+      width_.value = wid
+      height_.value = hei
+    })
     
-    return { ...toRefs(data), enter, leave, showDetail };
+    return { ...toRefs(data), enter, leave, showDetail,width_,height_ ,scr_};
   }
 };
 </script>

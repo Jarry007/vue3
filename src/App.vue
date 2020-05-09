@@ -21,7 +21,7 @@
 
 <style lang="scss">
 $fff:#fff;
-$black:lightslategrey;
+$black:rgb(60, 67, 75);
 /* a:active {
   color: #fff;
 }
