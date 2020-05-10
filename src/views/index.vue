@@ -3,18 +3,22 @@
     <h2 class="test">这注定是一个与众不同的时刻</h2>
     <div class="list">
       <section class="list-main">
-        <div
-          class="item"
-          @mouseenter="enter(index)"
-          @mouseleave="leave"
-          v-for="(i,index) in mainList"
-          :key="i.title"
-        >
-          <div class="pic">
+        <div class="item" v-for="(i,index) in mainList" :key="i.title">
+          <div class="pic" @mouseenter="enter(index)" @mouseleave="leave">
             <img :src="i.pic" alt />
-            <div class="danmu" id='danmuC' :style="index===showDanmu?'transform: translateY(0);':''">
+            <div
+              class="danmu"
+              id="danmuC"
+              :style="index===showDanmu?'transform: translateY(0);':''"
+            >
               <!-- <div class="danmu" id='danmuC'  style="transform: translateY(0)"> -->
-              <Danmu :list="i.danmu" :wid='width_' :hei='height_' :name="`danmu${index}`" :scroll='scr_'></Danmu>
+              <Danmu
+                :list="i.danmu"
+                :wid="width_"
+                :hei="height_"
+                :name="`danmu${index}`"
+                :scroll="index===showDanmu?true:false"
+              ></Danmu>
             </div>
           </div>
           <div class="title">{{i.title}}</div>
@@ -27,10 +31,10 @@
       </section>
       <section class="list-side">
         <div class="recommend">
-          <div class="title">推荐</div>
+          <div class="title" @click="shake">推荐</div>
           <div v-for="(i,index) in recom" :key="i.rank">
             <Tips v-show="index===showTips" :text="i.title"></Tips>
-            <div class="recom-line" @click="showDetail(index)" >
+            <div class="recom-line" @click="showDetail(index)">
               <span :style="`background:${rank[index].color}`">{{rank[index].text}}</span>
               {{i.title}}
             </div>
@@ -41,14 +45,14 @@
   </div>
 </template>
 <script>
-function querySize(name){
-  const dom = document.querySelector(`#${name}`)
-  let wid = dom.clientWidth
-  let hei = dom.clientHeight
-  console.log('indexDom',wid,hei)
-  return {wid,hei}
+function querySize(name) {
+  const dom = document.querySelector(`#${name}`);
+  let wid = dom.clientWidth;
+  let hei = dom.clientHeight;
+  console.log("indexDom", wid, hei);
+  return { wid, hei };
 }
-import { reactive, toRefs, onMounted,ref } from "vue";
+import { reactive, toRefs, onMounted, ref } from "vue";
 import Danmu from "../components/Danmu.vue";
 import Tips from "@/components/tips.vue";
 export default {
@@ -66,29 +70,29 @@ export default {
               avatar:
                 "https://blogai.cn/static/uploads/82f6bfa51778a0c55d42a334321cabf1/20200508112958_70.png",
               say: "君不见黄河之水天上来",
-              right:80,
-              top:20
+              right: 80,
+              top: 20
             },
             {
               avatar:
                 "https://blogai.cn/static/uploads/82f6bfa51778a0c55d42a334321cabf1/20200508112958_70.png",
               say: "奔流到海不复回",
-              right:60,
-              top:40
+              right: 60,
+              top: 40
             },
             {
               avatar:
                 "https://blogai.cn/static/uploads/82f6bfa51778a0c55d42a334321cabf1/20200508112958_70.png",
               say: "君不见高堂明镜悲白发",
-              right:40,
-              top:60
+              right: 40,
+              top: 60
             },
             {
               avatar:
                 "https://blogai.cn/static/uploads/82f6bfa51778a0c55d42a334321cabf1/20200508112958_70.png",
               say: "朝如青丝暮成雪",
-              right:20,
-              top:80
+              right: 20,
+              top: 80
             }
           ],
           pic:
@@ -114,7 +118,7 @@ export default {
         { text: "热", color: "#d88c60" }
       ],
       showDanmu: false,
-      showTips:'',
+      showTips: "",
       recom: [
         {
           title: "弹性视角下传统经典架构云原生改造计划",
@@ -131,34 +135,41 @@ export default {
       ]
     });
     const now_ = new Date().toLocaleString();
-    let scr_ = ref(false)
+
     data.now_ = now_;
     const enter = e => {
-      console.log('进入',e)
-      scr_ = true
       data.showDanmu = e;
     };
 
     const leave = () => {
-      // console.log('lika')
-      scr_ = false
       data.showDanmu = "";
     };
 
-    const showDetail = (e) => {
-
-      data.showTips = data.showTips === e?'':e
+    const showDetail = e => {
+      data.showTips = data.showTips === e ? "" : e;
     };
-    const width_ = ref(0)
-    const height_ = ref(0)
-    onMounted(()=>{
-      let {wid,hei} =  querySize('danmuC')
-      console.log(wid,hei)
-      width_.value = wid
-      height_.value = hei
-    })
-    
-    return { ...toRefs(data), enter, leave, showDetail,width_,height_ ,scr_};
+    const width_ = ref(0);
+    const height_ = ref(0);
+    onMounted(() => {
+      let { wid, hei } = querySize("danmuC");
+      // console.log(wid,hei)
+      width_.value = wid;
+      height_.value = hei;
+    });
+    let titleClick
+    const shake = ()=>{
+      if(titleClick){
+        const tsClick = new Date().valueOf()
+        // console.log(tsClick - titleClick )
+        if(tsClick - titleClick<260){
+          console.log('shake')
+        }
+        titleClick = tsClick
+        
+      }
+      titleClick = new Date().valueOf()
+    }
+    return { ...toRefs(data), enter, leave, showDetail, width_, height_,shake };
   }
 };
 </script>
@@ -193,7 +204,7 @@ $black: #171c32;
     margin-top: 3.125rem;
     overflow: hidden;
     padding-bottom: 2.5rem;
-    border-bottom: 1px solid #eee;
+    // border-bottom: 1px solid #eee;
 
     .pic {
       max-height: 12.5rem;
@@ -253,7 +264,7 @@ $black: #171c32;
       -webkit-box-orient: vertical;
     }
     &:hover {
-      box-shadow: 0.625rem 0 1.25rem -0.375rem #eee;
+      box-shadow: 0rem 1.25rem 2rem -0.5rem rgba(41, 40, 40, 0.6);
       transition: all 0.3s ease-out;
 
       img {
