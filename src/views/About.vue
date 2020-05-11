@@ -7,9 +7,11 @@
 
 <script>
 import {reactive,toRefs, watch, computed} from 'vue'
+// import {useStore} from 'vuex'
 export default  {
   name:'about',
   setup(){
+    
     const data = reactive({
       obj:[1,2,3,4,5,6,7,8,9],
       count:6,

@@ -22,13 +22,8 @@
 <style lang="scss">
 $fff:#fff;
 $black:rgb(60, 67, 75);
-/* a:active {
-  color: #fff;
-}
-a {
-  color: #fff;
-  text-decoration: none;
-} */
+$darkg:#394c5d;
+
 #app {
   box-sizing: border-box;
   margin: 0;
@@ -58,13 +53,13 @@ a {
 .light {
   transition: all 0.3s linear;
   background: $fff;
-  color: $black;
+  color: $darkg;
   a{
     text-decoration: none;
-    color: $black;
+    color: $darkg;
   }
   a:active{
-    color: $black;
+    color: $darkg;
   }
 }
 .bgcover {
@@ -82,10 +77,12 @@ router-link {
 }
 
 .head {
-  border-bottom: 1px solid #fff;
+  // border-bottom: 1px solid #fff;
   height: 5rem;
   width: 100%;
   display: flex;
+  
+  
 }
 .head span {
   flex: 1;
@@ -126,16 +123,12 @@ router-link {
 </style>
 
 <script>
-import { onMounted,ref } from "vue";
+import { ref } from "vue";
 export default {
   setup() {
     const the_ = ref(false)
-    onMounted(() => {
-      console.log("onMounted");
-    });
-
     const changeThems = () => {
-      console.log("dianji");
+      // console.log("dianji");
       the_.value = !the_.value;
     };
 

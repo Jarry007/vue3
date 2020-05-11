@@ -1,10 +1,11 @@
 <template >
   <div>
     <h2 class="test">这注定是一个与众不同的时刻</h2>
+    <div ref='dom_'></div> 
     <div class="list">
       <section class="list-main">
         <div class="item" v-for="(i,index) in mainList" :key="i.title">
-          <div class="pic" @mouseenter="enter(index)" @mouseleave="leave">
+          <div :class="`pic vivify swoop${index%2===0?'InRight':'InLeft'} delay-${index*300}`"  @mouseenter="enter(index)" @mouseleave="leave">
             <img :src="i.pic" alt />
             <div
               class="danmu"
@@ -31,14 +32,15 @@
       </section>
       <section class="list-side">
         <div class="recommend">
-          <div class="title" @click="shake">推荐</div>
-          <div v-for="(i,index) in recom" :key="i.rank">
-            <Tips v-show="index===showTips" :text="i.title"></Tips>
+          <div :class="`title vivify ${shake_?'shake':''}`"  @click="shake">推荐</div>
+          <div v-for="(i,index) in recom" :key="i.rank" >
+            <Tips v-if="index===showTips" class="vivify flipInX duration-600" :text="i.title" :id="index"></Tips>
             <div class="recom-line" @click="showDetail(index)">
               <span :style="`background:${rank[index].color}`">{{rank[index].text}}</span>
               {{i.title}}
             </div>
           </div>
+          <!-- <div class="flip"></div>  -->
         </div>
       </section>
     </div>
@@ -49,10 +51,11 @@ function querySize(name) {
   const dom = document.querySelector(`#${name}`);
   let wid = dom.clientWidth;
   let hei = dom.clientHeight;
-  console.log("indexDom", wid, hei);
+  // console.log("indexDom", wid, hei);
   return { wid, hei };
 }
 import { reactive, toRefs, onMounted, ref } from "vue";
+import {useStore } from 'vuex'
 import Danmu from "../components/Danmu.vue";
 import Tips from "@/components/tips.vue";
 export default {
@@ -60,8 +63,20 @@ export default {
     Danmu,
     Tips
   },
-  setup(prop) {
-    console.log("pro", prop);
+  setup() {
+    const store = useStore()
+    // const store = useStore()
+    console.log(
+    `    大家好，我是 ${store.state.author}。 
+    你可以通过点击 ${store.state.github} 访问我的。
+    这是正在开发的vue3版本（${store.state.version}）。
+    一起学习吧。`)
+    // store.state.virsion = '我修改了'
+    const dom_ = ref(null)
+    onMounted(()=>{
+      console.log('vue3中这样获取dom',dom_.value)
+    })
+   
     const data = reactive({
       mainList: [
         {
@@ -157,19 +172,25 @@ export default {
       height_.value = hei;
     });
     let titleClick
+    const shake_ = ref(false)
     const shake = ()=>{
       if(titleClick){
         const tsClick = new Date().valueOf()
         // console.log(tsClick - titleClick )
         if(tsClick - titleClick<260){
-          console.log('shake')
+          // console.log('shake')
+          shake_.value = true
+          setTimeout(()=>{
+            shake_.value = false
+          },1000)
+          
         }
         titleClick = tsClick
         
       }
       titleClick = new Date().valueOf()
     }
-    return { ...toRefs(data), enter, leave, showDetail, width_, height_,shake };
+    return { ...toRefs(data), enter, leave, showDetail, width_, height_,shake ,dom_,shake_};
   }
 };
 </script>
@@ -177,6 +198,12 @@ export default {
 <style lang="scss" scoped>
 $red: #ff3334;
 $black: #171c32;
+// .flip{
+//   transform:perspective(100px) rotateX(-20deg);
+//   // width: 6.25rem;
+//   // height: 6.25rem;
+//   // background: forestgreen;
+// }
 .list {
   display: flex;
   width: 60%;
@@ -232,7 +259,7 @@ $black: #171c32;
       }
     }
     .title {
-      // background: cadetblue;
+      cursor: pointer;
       padding-left: 1.875rem;
       width: calc(100% - 3.75rem);
       overflow: hidden;
@@ -257,7 +284,6 @@ $black: #171c32;
       padding-left: 1.875rem;
       color: 80%;
       overflow: hidden;
-      // white-space: nowrap;
       text-overflow: ellipsis;
       display: -webkit-box;
       -webkit-line-clamp: 3;
@@ -276,14 +302,11 @@ $black: #171c32;
 .list-side {
   .recommend {
     width: 100%;
-    // background: chocolate;
-
-    // line-height: 3.125rem;
     .recom-line {
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
-      line-height: 3.125rem;
+      line-height: 3rem;
     }
     span {
       width: 1rem;
@@ -299,15 +322,15 @@ $black: #171c32;
       padding-left: 1.875rem;
       height: 2.5rem;
       position: relative;
-      // background: darkcyan;
+      margin-bottom: .625rem;
       line-height: 2.5rem;
       width: 100%;
+      cursor:default;
     }
     .title::before {
       position: absolute;
       top: 0;
       left: 0;
-
       content: "";
       width: 0.625rem;
       height: 100%;
