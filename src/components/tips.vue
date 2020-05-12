@@ -3,7 +3,7 @@
     <div class="tips">
       {{showT}}
       <div>
-      <span @click="toDetail" calss>进去看看</span>
+      <router-link :to="{path:'posts',query:{postId:postId}}"><span @click="toDetail" calss>进去看看</span></router-link> 
       </div>
       
     </div>
@@ -70,11 +70,16 @@ export default {
   },
   setup(props) {
     const showT = ref(props.text);
+    const postId = ref(props.id)
     // const id = ref(props.id)
     const toDetail = ()=>{
       console.log('toDetail',props.id)
+      // return h('router-link',{
+      
+      // })
+      
     }
-    return { showT,toDetail};
+    return { showT,toDetail,postId};
   }
 };
 </script>

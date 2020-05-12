@@ -23,6 +23,7 @@ export default  {
     watch(()=>data.count,val=>{
       console.log('va',val)
     })
+    
     return {...toRefs(data),addClick}
   }
 }

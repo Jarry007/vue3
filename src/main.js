@@ -4,4 +4,6 @@ import router from './router'
 import store from './store'
 import './assets/ali.css'
 import './assets/vivify.css'
-createApp(App).use(router).use(store).mount('#app')
+import {Highlight} from '../util/highlight'
+// console.log('env',process.env)
+createApp(App).use(router).use(store).use(Highlight).mount('#app')

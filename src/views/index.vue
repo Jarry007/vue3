@@ -22,7 +22,7 @@
               ></Danmu>
             </div>
           </div>
-          <div class="title">{{i.title}}</div>
+          <div class="title"><router-link :to="{path:'posts',query:{postId:index}}">{{i.title}}</router-link> </div>
           <div class="time">
             作者: Jarry007
             <span style="float:right">时间: {{now_}}</span>
