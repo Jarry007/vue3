@@ -66,15 +66,17 @@ export default {
   setup() {
     const store = useStore()
     // const store = useStore()
+    store.commit('reset')
+
     console.log(
     `    大家好，我是 ${store.state.author}。 
     你可以通过点击 ${store.state.github} 访问我的。
     这是正在开发的vue3版本（${store.state.version}）。
     一起学习吧。`)
-    // store.state.virsion = '我修改了'
     const dom_ = ref(null)
     onMounted(()=>{
       console.log('vue3中这样获取dom',dom_.value)
+    
     })
    
     const data = reactive({

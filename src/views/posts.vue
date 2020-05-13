@@ -1,13 +1,21 @@
 <template>
    <div >
+      <span class="add-tem" @click="add">添加到暂存区{{postId}}</span>
+      <h1 @click="backPre">这是一个标题</h1>
       <div v-hljs class="posts" v-html="html_"></div>
    </div>
 </template>
 
 <style lang="scss" scoped>
+h1{
+   cursor: grab;
+}
+.add-tem{
+  font-size:1.2rem;
+   
+}
 .posts{
    width: 80%;
-   // width: 100%;
    margin-left: 10%;
    // word-wrap: break-word;
    // background: cadetblue;
@@ -22,22 +30,46 @@
 
 <script>
 import {result} from '../../util/sql'
-import { onMounted,ref } from 'vue'
+import { onMounted,ref, watch} from 'vue'
+import {useRouter, useRoute } from 'vue-router'
+import {useStore} from 'vuex'
 export default  {
    name: 'posts',
    setup(){
-      // console.log()
+      const store = useStore()
+    // const store = useStore()
+       store.commit('reset')
+      //  console.log('posts',store.state.virsion)
       const html_ = ref('')
+      const route = useRoute()
+      const postId = ref('')
       onMounted(()=>{
-      //   console.log(result)
-         // const jsonRes = JSON.stringify(result)
          html_.value = result
-         // setTimeout(()=>{
-         //    html_.value = "<pre> <code class='language-javascript'> console.log('ddd')</code></pre>"
-         // },3000)
+         watch(route,val=>{
+            postId.value = val.query.postId
+         })
+         console.log('postId',postId)
       })
+      const router_ = useRouter()
+      const backPre = ()=>{
+         router_.back() 
+      }
+      const add = ()=>{
+         let result =  store.state.temporary.filter(({id})=>(id).toString()===postId.value)
+         if(result.length){
+            backPre()
+            return
+            }
+         const obj = {
+            title:(Math.random()).toString(),
+            author:'Jarry007',
+            id: postId.value
+         }
+         store.commit('addList',obj)
+         backPre()
+      }
 
-      return {html_}
+      return {html_,backPre,add,postId}
    }
 }
 </script>
