@@ -3,7 +3,7 @@
     <div class="tips">
       {{showT}}
       <div>
-      <router-link :to="{path:'posts',query:{postId:postId}}"><span @click="toDetail" calss>进去看看</span></router-link> 
+      <router-link :to="{path:'/posts',query:{postId:postId}}"><span @click="toDetail" calss>进去看看</span></router-link> 
       </div>
       
     </div>

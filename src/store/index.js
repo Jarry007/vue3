@@ -12,7 +12,7 @@ export default Vuex.createStore({
       state.version = ~~ (Math.random() * 1000)
     },
     addList(state,obj){
-      console.log(obj.id)
+      // console.log(obj.id)
       state.temporary.push(obj)
     },
     delList(state,index){

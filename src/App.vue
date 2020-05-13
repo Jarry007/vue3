@@ -204,12 +204,10 @@ export default {
     onMounted(()=>{
       watch(store.state,val=>{
         temList.list = val.temporary
-        console.log('chang,',val.temporary)
     })
     })
     const deleInd = ref('')
     const remove = (index)=>{
-      console.log(index)
       deleInd.value = index
       setTimeout(()=>{
         store.commit('delList',index)
@@ -221,7 +219,7 @@ export default {
     const route = useRoute()
     const toPost = (id)=>{
       if(route.path!=='/posts'||route.query.postId!=id){
-      router.push({path:'/posts',query:{postId:id}})
+      router.push({path:'/posts',query:{postId:(id).toString()}})
       }
     }
       

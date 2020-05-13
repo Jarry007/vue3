@@ -46,9 +46,10 @@ export default  {
       onMounted(()=>{
          html_.value = result
          watch(route,val=>{
+            console.log('router变化了',val.query)
             postId.value = val.query.postId
          })
-         console.log('postId',postId)
+        
       })
       const router_ = useRouter()
       const backPre = ()=>{
