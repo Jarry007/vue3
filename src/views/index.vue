@@ -22,7 +22,9 @@
               ></Danmu>
             </div>
           </div>
-          <div class="title"><router-link :to="{path:'posts',query:{postId:index}}">{{i.title}}</router-link> </div>
+          <!-- <div class="title"><router-link :to="{path:'posts',query:{postId:index}}">{{i.title}}</router-link> </div> -->
+          <div class="title" @click="toDetail(index)">{{i.title}}</div>
+
           <div class="time">
             作者: Jarry007
             <span style="float:right">时间: {{now_}}</span>
@@ -58,6 +60,7 @@ import { reactive, toRefs, onMounted, ref } from "vue";
 import {useStore } from 'vuex'
 import Danmu from "../components/Danmu.vue";
 import Tips from "@/components/tips.vue";
+import {useRouter} from 'vue-router'
 export default {
   components: {
     Danmu,
@@ -192,7 +195,12 @@ export default {
       }
       titleClick = new Date().valueOf()
     }
-    return { ...toRefs(data), enter, leave, showDetail, width_, height_,shake ,dom_,shake_};
+    const router = useRouter()
+    const toDetail = (index)=>{
+      router.push({path:'/posts',query:{postId:(index).toString()}})
+
+    }
+    return { ...toRefs(data), enter, leave, showDetail, width_, height_,shake ,dom_,shake_,toDetail};
   }
 };
 </script>

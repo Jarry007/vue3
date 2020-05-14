@@ -3,7 +3,7 @@
     <div class="tips">
       {{showT}}
       <div>
-      <router-link :to="{path:'/posts',query:{postId:postId}}"><span @click="toDetail" calss>进去看看</span></router-link> 
+        <span @click="toDetail(postId)">进去看看</span>
       </div>
       
     </div>
@@ -59,6 +59,7 @@
 </style>
 <script>
 import { ref } from "vue";
+import {useRouter} from  'vue-router'
 export default {
   name: "Tips",
   props: {
@@ -71,15 +72,13 @@ export default {
   setup(props) {
     const showT = ref(props.text);
     const postId = ref(props.id)
-    // const id = ref(props.id)
+    const router = useRouter()
     const toDetail = ()=>{
-      console.log('toDetail',props.id)
-      // return h('router-link',{
-      
-      // })
+
+      router.push({path:'/posts',query:{postId:(postId.value).toString()}})
       
     }
     return { showT,toDetail,postId};
   }
 };
-</script>
+</script> 
