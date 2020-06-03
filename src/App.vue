@@ -13,6 +13,7 @@
           <router-link to="/index">主页</router-link>
         </li>
       </ul>
+      <div class="rights" @click="logout">退出</div>
       <div class="right" @click="changeThems">
         <i class="blog icon-theme"></i>
       </div>
@@ -90,17 +91,11 @@ $bheight: 6.25rem;
   }
 
 #app {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+  
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  width: 100%;
-  height: 100%;
-  overflow-y: scroll;
-  overflow-x: hidden;
 }
 .dark {
   background: $black;
@@ -170,6 +165,12 @@ router-link {
   transform: rotate(180deg);
   // transition:  0.2s ease-out;
 }
+.rights{
+  cursor: pointer;
+  flex: 1;
+  align-self: center;
+  font-size: 1rem;
+}
 #nav {
   padding: 30px;
 }
@@ -222,8 +223,15 @@ export default {
       router.push({path:'/posts',query:{postId:(id).toString()}})
       }
     }
+
+    const logout = ()=>{
+      store.dispatch('logout')
+      router.push({
+        name:'Login'
+      }) 
+    }
       
-    return { the_, changeThems,remove,...toRefs(temList),deleInd,toPost };
+    return { the_, changeThems,remove,...toRefs(temList),deleInd,toPost,logout };
   }
 };
 </script>

@@ -1,7 +1,8 @@
 <template >
   <div>
+    
     <h2 class="test">这注定是一个与众不同的时刻</h2>
-    <div ref='dom_'></div> 
+    <!-- <CountTo :end='23'></CountTo> -->
     <div class="list">
       <section class="list-main">
         <div class="item" v-for="(i,index) in mainList" :key="i.title">
@@ -58,13 +59,15 @@ function querySize(name) {
 }
 import { reactive, toRefs, onMounted, ref } from "vue";
 import {useStore } from 'vuex'
+// import CountTo from "./countup.vue"
 import Danmu from "../components/Danmu.vue";
 import Tips from "@/components/tips.vue";
 import {useRouter} from 'vue-router'
 export default {
   components: {
     Danmu,
-    Tips
+    Tips,
+    // CountTo  
   },
   setup() {
     const store = useStore()
@@ -330,7 +333,7 @@ $black: #171c32;
     .title {
       text-align: left;
       padding-left: 1.875rem;
-      height: 2.5rem;
+      height: 2.5rem;   
       position: relative;
       margin-bottom: .625rem;
       line-height: 2.5rem;
