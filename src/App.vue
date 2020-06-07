@@ -7,64 +7,118 @@
           <router-link to="/">Home</router-link>
         </li>
         <li>
-          <router-link to="/about">About</router-link>
+          <router-link to="/about" v-hasRole="['admin']">About</router-link>
         </li>
         <li>
           <router-link to="/index">主页</router-link>
         </li>
       </ul>
-      <div class="right" @click="changeThems"> <i class="blog icon-theme"></i> </div>
+      <div class="rights" @click="logout" v-hasRole="['admin']">退出</div>
+      <div class="right" @click="changeThems">
+        <i class="blog icon-theme"></i>
+      </div>
     </header>
+
+    <div class="temporary-block">
+      <div :class="`temporary-item vivify ${i === deleInd?'popOutLeft':'popInLeft'}  ${i<5?`t-width-${i+1}`:'t-width'}`" v-for="(item,i) in list" :key='i'>
+       <span @click="toPost(item.id)"> {{i}}{{item.title}} </span> <div class="close" @click="remove(i)">X</div>
+      </div>
+     
+    </div>
+
     <router-view />
   </div>
 </template>
 
 <style lang="scss">
-$fff:#fff;
-$black:rgb(60, 67, 75);
-/* a:active {
-  color: #fff;
+$fff: #fff;
+$black: rgb(60, 67, 75);
+$darkg: #394c5d;
+
+$bheight: 6.25rem;
+.temporary-block {
+  width: 12.5rem;
+  position: fixed;
+  left: 0;
+  top: 10rem;
+  cursor: pointer;
+  .temporary-item {
+    position: relative;
+    min-width: 20%;
+    height: 2rem;
+    background: #7379ab;
+    line-height: 2rem;
+    font-weight: 500;
+    letter-spacing: .1rem;
+    color: #f1f2f8;
+    border-top-right-radius: 3.125rem;
+    border-bottom-right-radius: 3.125rem;
+    box-shadow:0rem 0.2rem 0.5rem #20202059;
+    margin-bottom: 1rem; 
+    margin-top: 0.5rem;
+    transition: width 0.2s ease-out;
+    overflow: hidden;
+    padding:0 .625rem;
+    text-align: left;
+    span{
+      // margin-left: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width:calc(100% - 1.875rem) ;
+      display: inline-block;
+      // background: cornflowerblue;
+    }
+    .close{
+      width: 1.875rem;
+    line-height: inherit;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 0;
+    background: #ff9b93;
+    }
+  }
+  .temporary-item:hover{
+    width: 100%;
+  }
 }
-a {
-  color: #fff;
-  text-decoration: none;
-} */
+.t-width{
+  width: 30%;
+}
+  @for $i from  1 through  5 {
+     .t-width-#{$i} { width: 80% - $i * 10%; }
+  }
+
 #app {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+  
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  width: 100%;
-  height: 100%;
-  overflow-y: scroll;
-  overflow-x:hidden ;
-
 }
 .dark {
   background: $black;
   color: $fff;
   transition: all 0.3s linear;
-  a{
+  a {
     text-decoration: none;
     color: $fff;
   }
-  a:active{
+  a:active {
     color: $fff;
   }
 }
 .light {
   transition: all 0.3s linear;
   background: $fff;
-  color: $black;
-  a{
+  color: $darkg;
+  a {
     text-decoration: none;
-    color: $black;
+    color: $darkg;
   }
-  a:active{
-    color: $black;
+  a:active {
+    color: $darkg;
   }
 }
 .bgcover {
@@ -82,7 +136,7 @@ router-link {
 }
 
 .head {
-  border-bottom: 1px solid #fff;
+  // border-bottom: 1px solid #fff;
   height: 5rem;
   width: 100%;
   display: flex;
@@ -111,6 +165,12 @@ router-link {
   transform: rotate(180deg);
   // transition:  0.2s ease-out;
 }
+.rights{
+  cursor: pointer;
+  flex: 1;
+  align-self: center;
+  font-size: 1rem;
+}
 #nav {
   padding: 30px;
 }
@@ -126,20 +186,52 @@ router-link {
 </style>
 
 <script>
-import { onMounted,ref } from "vue";
+import { ref, watch, onMounted, reactive ,toRefs} from "vue";
+import {useStore} from 'vuex'
+import { useRouter, useRoute } from 'vue-router';
 export default {
   setup() {
-    const the_ = ref(false)
-    onMounted(() => {
-      console.log("onMounted");
-    });
-
+    const the_ = ref(false);
     const changeThems = () => {
-      console.log("dianji");
+      // console.log("dianji");
       the_.value = !the_.value;
     };
+    // const datas = ref('')
+    const store = useStore()
 
-    return { the_, changeThems };
+    const temList = reactive({
+      list:store.state.temporary
+    })
+    onMounted(()=>{
+      watch(store.state,val=>{
+        temList.list = val.temporary
+    })
+    })
+    const deleInd = ref('')
+    const remove = (index)=>{
+      deleInd.value = index
+      setTimeout(()=>{
+        store.commit('delList',index)
+        deleInd.value = ''
+      },500)
+      
+    }
+    const router = useRouter()
+    const route = useRoute()
+    const toPost = (id)=>{
+      if(route.path!=='/posts'||route.query.postId!=id){
+      router.push({path:'/posts',query:{postId:(id).toString()}})
+      }
+    }
+
+    const logout = ()=>{
+      store.dispatch('logout')
+      router.push({
+        name:'Login'
+      }) 
+    }
+      
+    return { the_, changeThems,remove,...toRefs(temList),deleInd,toPost,logout };
   }
 };
 </script>

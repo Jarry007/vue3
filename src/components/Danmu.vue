@@ -34,7 +34,6 @@ function size(name, w, h) {
   return { canvas, ctx };
 }
 function move(w, h, ctx, list) {
-  // console.log("dd",list[0].say);
   ctx.clearRect(0, 0, w, h);
   ctx.font = "15px Arial";
   ctx.fillStyle = "#E8DBBD";
@@ -109,32 +108,11 @@ export default {
          move(props.wid, props.hei, ctx_, list_);
       }
     });
-    // let canScroll = ref(false)
-    // watchEffect(()=>{
-    //   // console.log('sc',props.scroll)
-    //   canScroll.value = props.scroll
-    //   if(canScroll&&ctx_){
-    //     console.log('ctx')
-    //     const list_ = data.list.slice()
-    //     move(props.wid,props.hei,ctx_,list_)
-    //   }else{
-    //     cancelAnimationFrame(ps)
-    //   }
-    //   // setTimeout(()=>{
-    //   //   canScroll.value = !canScroll.value
-    //   // },2000)
-
-    //   // console.log('wid',props.wid)
-    // })
-    // watch(()=>props.scroll,val=>{
-    //   console.log('watch',val)
-    // })
 
     onMounted(() => {
       setTimeout(() => {
         let { ctx } = size(data.names, props.wid, props.hei);
         ctx_ = ctx;
-        // const list_ = data.list.slice();
         if(props.scroll){
           const list_ = deepCopy(data.list);
            move(props.wid, props.hei, ctx_, list_);
@@ -142,6 +120,9 @@ export default {
        
       }, 1000);
     });
+    // watch(props.scroll,val=>{
+      
+    // })
     return { ...toRefs(data) };
   }
 };
