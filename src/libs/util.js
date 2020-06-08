@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-06-03 18:27:55
- * @LastEditTime: 2020-06-03 18:46:25
+ * @LastEditTime: 2020-06-08 11:20:00
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \project\src\libs\util.js
@@ -12,7 +12,7 @@ const {cookieExpires} = config
 
 const tokenLable = 'tokenJ'
 const roleLable = 'roleJ'
-export const setToken = (token)=>{
+export const setTokens = (token)=>{
    Cookies.set(tokenLable,token.token ||'',{expires:cookieExpires || 1})
    Cookies.set(roleLable,token.role ||'',{expires:cookieExpires || 1})
 }

@@ -1,7 +1,7 @@
 <template >
   <div>
     
-    <h2 class="test">这注定是一个与众不同的时刻</h2>
+    <h2 class="test" v-hasRole="['user']">这注定是一个与众不同的时刻</h2>
     <!-- <CountTo :end='23'></CountTo> -->
     <div class="list">
       <section class="list-main">
@@ -38,7 +38,7 @@
           <div :class="`title vivify ${shake_?'shake':''}`"  @click="shake">推荐</div>
           <div v-for="(i,index) in recom" :key="i.rank" >
             <Tips v-if="index===showTips" class="vivify flipInX duration-600" :text="i.title" :id="index"></Tips>
-            <div class="recom-line" @click="showDetail(index)">
+            <div v-hasRole="['admin']" class="recom-line" @click="showDetail(index)">
               <span :style="`background:${rank[index].color}`">{{rank[index].text}}</span>
               {{i.title}}
             </div>

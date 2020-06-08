@@ -1,9 +1,8 @@
 import Hljs from 'highlight.js'
 import 'highlight.js/styles/dracula.css'
 
-const data = {}
-
-data.install = (app)=>{
+// const data = {}
+const data  = (app)=>{
    app.directive('hljs',{
       updated(el){
          let nodes = el.querySelectorAll('pre code')

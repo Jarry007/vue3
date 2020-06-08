@@ -7,15 +7,15 @@
           <router-link to="/">Home</router-link>
         </li>
         <li>
-          <router-link to="/about" v-hasRole="['admin']">About</router-link>
+          <router-link to="/about" >About</router-link>
         </li>
         <li>
           <router-link to="/index">主页</router-link>
         </li>
       </ul>
-      <div class="rights" @click="logout" v-hasRole="['admin']">退出</div>
-      <div class="right" @click="changeThems">
-        <i class="blog icon-theme"></i>
+      <div class="rights" @click="logout" >退出</div>
+      <div class="right" @click="changeThems" >
+        <i class="blog icon-theme" ></i>
       </div>
     </header>
 
