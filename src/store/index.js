@@ -1,13 +1,15 @@
 /*
  * @Author: your name
  * @Date: 2020-05-07 15:50:01
- * @LastEditTime: 2020-06-08 11:35:35
+ * @LastEditTime: 2020-06-22 19:36:16
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \project\src\store\index.js
  */ 
 import Vuex from 'vuex'
 import {setTokens} from '@/libs/util'
+import routePermission from "./router" 
+import getters from './getter'
 export default Vuex.createStore({
   state: {
     author:'Jarry007',
@@ -17,13 +19,8 @@ export default Vuex.createStore({
       token:'',
       role:''
     },
-    temporary:[{title:'关于前端架构的那些事',id:1,author:'Jarry007'}]
-  },
-  getters:{
-    token(state){
-      // console.log('getters',state.token.role)
-      return state.token.role
-    }
+    temporary:[]
+    // temporary:[{title:'关于前端架构的那些事',id:1,author:'Jarry007'}]
   },
   mutations: {
     setToken(state, token){
@@ -57,8 +54,11 @@ export default Vuex.createStore({
     },
     logout({commit}){
       commit('setToken','')
-    }
+    },
+
   },
   modules: {
-  }
+    routePermission
+  },
+  getters
 });

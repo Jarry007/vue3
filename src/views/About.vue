@@ -1,14 +1,27 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-06-08 10:17:59
+ * @LastEditTime: 2020-06-22 18:59:12
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: \vue3\src\views\About.vue
+--> 
 <template>
   <div class="about">
+    <SideBar ></SideBar>
     <h1 @click="addClick">This is an about page{{double.value}}</h1>
     <h2 v-for="i in count" :key='i' >{{i}}</h2>
   </div>
 </template>
 
 <script>
+import SideBar from '@/nav/sideBar/sideBar' 
 import {reactive,toRefs, computed,ref} from 'vue'
 // import {useStore} from 'vuex'
 export default  {
+  components:{
+      SideBar
+   },
   name:'about',
   setup(){
     

@@ -1,3 +1,11 @@
+/*
+ * @Author: your name
+ * @Date: 2020-06-08 10:17:59
+ * @LastEditTime: 2020-06-18 09:27:38
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: \vue3\src\main.js
+ */ 
 import { createApp } from 'vue';
 import App from './App.vue'
 import router from './router'
@@ -6,6 +14,7 @@ import './assets/ali.css'
 import './assets/vivify.css'
 import {Highlight} from '../util/highlight'
 import hasRole from '../util/role'
+// import elementUI from 'element-ui'
 // console.log('env',process.env)
 createApp(App).use(router).use(store).use(Highlight).use(hasRole).mount('#app')
 
