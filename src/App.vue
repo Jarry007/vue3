@@ -5,10 +5,21 @@
       <ul class="list">
         <li>
           <router-link to="/">Home</router-link>
+          
         </li>
         <li>
           <router-link to="/about" >About</router-link>
+
         </li>
+<li>
+          <router-link to="/about/one" >About-one</router-link>
+
+        </li>
+        <li>
+          <router-link to="/about/two" >About-two</router-link>
+
+        </li>
+
         <li>
           <router-link to="/index">主页</router-link>
         </li>

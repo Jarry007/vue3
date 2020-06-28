@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-06-22 14:52:22
- * @LastEditTime: 2020-06-22 16:15:35
+ * @LastEditTime: 2020-06-28 15:15:04
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3\src\store\router.js
@@ -26,9 +26,7 @@ const routePermission = {
       requestRouter({commit}){
          return new Promise ((resolve)=>{
             getRouter().then(res=>{
-               console.log('luyou ',res)
                let routeRes = coverRouter(res)
-               console.log('cover ',routeRes)
                commit('setRouter',routeRes)
                resolve(routeRes)
             })

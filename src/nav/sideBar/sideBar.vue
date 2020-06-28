@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-06-10 11:24:15
- * @LastEditTime: 2020-06-22 20:24:45
+ * @LastEditTime: 2020-06-24 16:34:38
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3\src\nav\sideBar.vue
@@ -9,14 +9,19 @@
 <template>
   
     <div class="side-bar">
-      <div class="main" v-for="i in List" :key="i.name">
-        <block v-if="i.meta">
-          <div @click="toPath(i)">{{i.meta.title}}</div>
-          <div v-if="i.children.length">
-            <div class="children" v-for="item in i.children" :key="item.name" @click="toPath(item)">{{item.meta.title}}</div>
+      <div class="main" v-for="(item) in List" :key="item.name">
+        <router-link :to='item.path'>{{item.meta?item.meta.title:item.name}}</router-link>
+          <div v-for="child in item.children" :key="child.name" class="children">
+            <router-link :to="`${item.path}/${child.path}`">{{child.meta?child.meta.title:child.name}}</router-link>
           </div>
-        </block>
+
       </div>
+      <!-- <template v-for="(item,index) in List" >
+       <div v-else class="main" :key="item.name" @click="openOrClose(index)">
+          {{item.meta.title}}
+        </div>
+        
+      </template> -->
     </div>
 
 </template>
@@ -32,16 +37,19 @@ export default {
     const router = useRouter() 
     const List = ref(0);
     List.value = store.getters.getter_routes;
-   //  console.log(List.value);
-   const toPath = (item)=>{
+    const toPath = (item)=>{
      if(item.component !== 'main'){
         console.log(item.path)
         router.push({
            path:item.path
         })
      } 
-   }
-    return { List ,toPath};
+    }
+
+    const openOrClose = (index)=>{
+     console.log('index',index)
+    }
+    return { List ,toPath,openOrClose};
   }
 };
 </script>

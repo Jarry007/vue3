@@ -1,14 +1,14 @@
 <!--
  * @Author: your name
- * @Date: 2020-06-22 20:25:48
- * @LastEditTime: 2020-06-24 16:38:26
+ * @Date: 2020-06-24 10:53:02
+ * @LastEditTime: 2020-06-24 11:03:07
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \vue3\src\views\one\first\index.vue
+ * @FilePath: \vue3\src\views\about\two.vue
 --> 
 <template>
 <div class="about-temp">
-<h2>first first</h2>
+<h2>two two </h2>
 </div>
 </template>
 
@@ -24,5 +24,6 @@ export default {
    position: absolute;
    top: 50%;
    left: 50%;
+   background: aliceblue;
 }
 </style>

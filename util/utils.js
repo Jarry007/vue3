@@ -1,3 +1,13 @@
+/*
+ * @Author: your name
+ * @Date: 2020-06-08 10:17:59
+ * @LastEditTime: 2020-06-28 14:52:29
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \vue3\util\utils.js
+ */ 
+
+import Side from '@/nav/index'
 
 const deepCopy_ = (obj)=>{
    // console.log(typeof obj)
@@ -25,9 +35,13 @@ export const coverRouter = (data)=>{
         if(item.component === 'main'){
           //组件为 main 代表是展示在侧边栏的，只可折叠，不进路由跳转
           item.meta.title += '侧边'
+          // item.component = (resolve)=> require(['@/nav/index'],resolve)
+          
+          item.component = Side
         }else{
           //进行路劲与指向的匹配处理
           item.component  = loadView(item.component)
+          // console.log(item.component)
         }
       }
 
@@ -40,12 +54,7 @@ export const coverRouter = (data)=>{
 }
 
 export const loadView = (view) => { // 路由懒加载
-  return (resolve) =>  require([`@/views/${view}`], resolve)
+  return () =>  import(`@/views/${view}`) 
 }
-//  const list  = [{s:'dd',d:'ee'},{p:'dd'}]
 
-// const p = deepCopy(list)
 
-// p[0].s = 'uuuu'
-// console.log(list[0])
-// console.log(p[0])

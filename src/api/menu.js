@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-06-22 14:53:27
- * @LastEditTime: 2020-06-22 14:53:28
+ * @LastEditTime: 2020-06-28 17:04:28
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue3\src\api\menu.js
@@ -50,7 +50,7 @@ export function getRouter (){
          name: 'three', path: '/three', component: "three/index", meta: {
             title: '叁',
             icon: 'three'
-         }, children: [],
+         }
       }
    ]
    return new Promise((resolve)=>{

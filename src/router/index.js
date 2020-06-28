@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-05-07 15:50:01
- * @LastEditTime: 2020-06-22 18:48:03
+ * @LastEditTime: 2020-06-28 17:02:54
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \project\src\router\index.js
@@ -14,46 +14,52 @@ import config from '@/config'
 const {homeName ,loginName} = config
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
+  routes:routes
 })
 
 
 /**
  * 路由守卫，进行检验
  */
-router.beforeEach((to,from,next)=>{
-  const token = getToken()
-  if(!token && to.name !==loginName){
-    console.log('if')
-    next({
-      name:loginName
-    })
-  }else if(!token && to.name ===loginName){
-    console.log('else if')
-    next()
-  }else if(token && to.name === loginName){
-    console.log('else if 2')
-    next({
-      name:homeName
-    })
-  }else{
-    //有token,并且跳转的页面不是登录页
-    // 这时，进行路由查询
-    console.log('else')
 
-    store.dispatch('requestRouter').then(res=>{
-      // console.log('dispatch',res)
-      // router.addRoutes(res)
-      router.addRoute(res)
-      // next({..})
-      // console.log('to',to)
-      next()
-    }).catch(()=>{
-      store.dispatch('logout')
-      next({
-        name:loginName
-      })
+router.beforeEach(async (to, from, next) => {
+  const token = getToken()
+  if (!token && to.name !== loginName) {
+ 
+    next({
+      name: loginName
     })
+  } else if (!token && to.name === loginName) {
+
+    next()
+  } else if (token && to.name === loginName) {
+ 
+    next({
+      name: homeName
+    })
+  } else {
+    //有token,并且跳转的页面不是登录页
+    if(!store.getters.getter_routes.length){
+      try {
+        let res = await store.dispatch('requestRouter')
+        router.addRoute(...res)
+        next({ ...to, replace: true })
+        // next() //此时还没有挂载成功,刷新之后会消失
+      } catch{
+        store.dispatch('logout')
+        next({
+          name: loginName
+        })
+      }
+    }else{
+      next()
+    }
+    
+    // store.dispatch('requestRouter').then(res=>{
+
+    // }).catch(()=>{
+
+    // })
     // next()
   }
 })

@@ -9,14 +9,18 @@
 <template>
    <div>
       <SideBar></SideBar>
+      <Main></Main>
    </div>
 </template>
 
 <script>
 import SideBar from './sideBar/sideBar' 
+import Main from "./appMain"
 export default {
+   name:'Side',
    components:{
-      SideBar
+      SideBar,
+      Main
    },
 }
 </script>
