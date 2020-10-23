@@ -19,7 +19,7 @@ export const setTokens = (token)=>{
 
 export const getToken = ()=>{
    const token = Cookies.get(tokenLable)
-   console.log('getToken',token)
+   // console.log('getToken',token)
    if(token) return token
    return false
 }

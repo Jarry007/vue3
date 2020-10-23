@@ -2,9 +2,8 @@ import router from './index'
 import store from '../store'
 const getToken = false
 
-const whiteList = []
+const whiteList = ['']
 router.beforeEach((to, from, next) => {
-   console.log('我要跳转了')
    if (getToken) {
      /* has token*/
      if (to.path === '/login') {

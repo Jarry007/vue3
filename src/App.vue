@@ -1,6 +1,6 @@
 <template>
   <div id="app" :class="the_?'dark':'light'">
-    <header class="head">
+    <!-- <header class="head">
       <span>LOGO</span>
       <ul class="list">
         <li>
@@ -28,14 +28,14 @@
       <div class="right" @click="changeThems" >
         <i class="blog icon-theme" ></i>
       </div>
-    </header>
+    </header> -->
 
-    <div class="temporary-block">
+    <!-- <div class="temporary-block">
       <div :class="`temporary-item vivify ${i === deleInd?'popOutLeft':'popInLeft'}  ${i<5?`t-width-${i+1}`:'t-width'}`" v-for="(item,i) in list" :key='i'>
        <span @click="toPost(item.id)"> {{i}}{{item.title}} </span> <div class="close" @click="remove(i)">X</div>
       </div>
      
-    </div>
+    </div> -->
 
     <router-view />
   </div>

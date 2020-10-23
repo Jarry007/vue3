@@ -15,6 +15,12 @@ const loadView = (view) => { // 路由懒加载
 }
 export default  [
    {
+      path: '/main',
+      name: 'Main',
+      // redirect:'/about',
+      component:()=>import ('@/views/main/main.vue')
+    },
+   {
       path: '/',
       name: 'Home',
       // redirect:'/about',

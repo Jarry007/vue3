@@ -7,8 +7,13 @@
  * @FilePath: \vue3\src\nav\sideBar.vue
 --> 
 <template>
-  
     <div class="side-bar">
+
+      <a-button type='primary' @click="toCollapsed">
+        <span v-if="collapsed">展开</span>
+        <span v-else>关闭</span>
+      </a-button>
+
       <div class="main" v-for="(item) in List" :key="item.name">
         <router-link :to='item.path'>{{item.meta?item.meta.title:item.name}}</router-link>
           <div v-for="child in item.children" :key="child.name" class="children">
@@ -29,7 +34,7 @@
 <script>
 import { useStore } from "vuex";
 import {useRouter } from 'vue-router'
-import { ref } from "vue";
+import { reactive, ref,toRefs } from "vue";
 export default {
   name: "SideBar",
   setup() {
@@ -49,7 +54,26 @@ export default {
     const openOrClose = (index)=>{
      console.log('index',index)
     }
-    return { List ,toPath,openOrClose};
+
+    // 侧边栏相关
+
+    const datas = reactive({
+      collapsed:false,
+
+
+    })
+
+    const logout = ()=>{
+      store.dispatch('logout')
+      router.push({
+        name:'Login'
+      }) 
+    }
+    const  toCollapsed = ()=>{
+      datas.collapsed = !datas.collapsed
+      logout()
+    }
+    return { List ,toPath,openOrClose,toCollapsed,...toRefs(datas)};
   }
 };
 </script>

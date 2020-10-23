@@ -14,7 +14,15 @@ import './assets/ali.css'
 import './assets/vivify.css'
 import {Highlight} from '../util/highlight'
 import hasRole from '../util/role'
+import Antd from 'ant-design-vue';
+import 'ant-design-vue/dist/antd.css';
+
+
+if(process.env.NODE_ENV === 'development') require('@/mock')
+
 // import elementUI from 'element-ui'
 // console.log('env',process.env)
-createApp(App).use(router).use(store).use(Highlight).use(hasRole).mount('#app')
+const app = createApp(App)
+app.config.productionTip = false;
+app.use(router).use(store).use(Highlight).use(hasRole).use(Antd).mount('#app')
 
