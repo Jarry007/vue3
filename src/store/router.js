@@ -19,7 +19,7 @@ const routePermission = {
    mutations:{
       setRouter(state, router){
          state.addRouter = router
-         state.router = commonRouter.concat(router)
+         state.router = commonRouter.concat(router) //合并固定路由
       }
    },
    actions:{
@@ -28,6 +28,7 @@ const routePermission = {
             getRouter().then(res=>{
                let routeRes = coverRouter(res)
                commit('setRouter',routeRes)
+               console.log('路由加载完毕',routeRes)
                resolve(routeRes)
             })
          })

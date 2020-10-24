@@ -16,6 +16,7 @@ import {Highlight} from '../util/highlight'
 import hasRole from '../util/role'
 import Antd from 'ant-design-vue';
 import 'ant-design-vue/dist/antd.css';
+import './assets/reset.less'
 
 
 if(process.env.NODE_ENV === 'development') require('@/mock')

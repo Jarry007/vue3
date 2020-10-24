@@ -1,80 +1,30 @@
 <template>
-       <!-- <NavBar></NavBar>
 
-       <Side></Side>
+       <NavBar></NavBar>
 
-       <Main></Main> -->
-       <a-layout id="components-layout-demo-fixed-sider">
-    <a-layout-sider :style="{ overflow: 'auto', height: '100vh', position: 'fixed', left: 0 }">
-      <div class="logo" />
-      <a-menu theme="dark" mode="inline" v-model:selectedKeys="selectedKeys">
-        <a-menu-item key="1">
-          <user-outlined />
-          <span class="nav-text">nav 1</span>
-        </a-menu-item>
-        <a-menu-item key="2">
-          <video-camera-outlined />
-          <span class="nav-text">nav 2</span>
-        </a-menu-item>
-        <a-menu-item key="3">
-          <upload-outlined />
-          <span class="nav-text">nav 3</span>
-        </a-menu-item>
-        <a-menu-item key="4">
-          <bar-chart-outlined />
-          <span class="nav-text">nav 4</span>
-        </a-menu-item>
-        <a-menu-item key="5">
-          <cloud-outlined />
-          <span class="nav-text">nav 5</span>
-        </a-menu-item>
-        <a-menu-item key="6">
-          <appstore-outlined />
-          <span class="nav-text">nav 6</span>
-        </a-menu-item>
-        <a-menu-item key="7">
-          <team-outlined />
-          <span class="nav-text">nav 7</span>
-        </a-menu-item>
-        <a-menu-item key="8">
-          <shop-outlined />
-          <span class="nav-text">nav 8</span>
-        </a-menu-item>
-      </a-menu>
-    </a-layout-sider>
-    <a-layout :style="{ marginLeft: '200px' }">
-      <a-layout-header :style="{ background: '#fff', padding: 0 }" />
-      <a-layout-content :style="{ margin: '24px 16px 0', overflow: 'initial' }">
-        <div :style="{ padding: '24px', background: '#fff', textAlign: 'center' }">
-          ...
-          <br />
-          Really
-          <br />...<br />...<br />...<br />
-          long
-          <br />...<br />...<br />...<br />...<br />...<br />...
-          <br />...<br />...<br />...<br />...<br />...<br />...
-          <br />...<br />...<br />...<br />...<br />...<br />...
-          <br />...<br />...<br />...<br />...<br />...<br />...
-          <br />...<br />...<br />...<br />...<br />...<br />...
-          <br />...<br />...<br />...<br />...<br />...<br />...
-          <br />...<br />...<br />...<br />...<br />...<br />
-          content
-        </div>
-      </a-layout-content>
-      <a-layout-footer :style="{ textAlign: 'center' }">
-        Ant Design ©2018 Created by Ant UED
-      </a-layout-footer>
-    </a-layout>
-  </a-layout>
+       <Side ></Side>
+
+
+      <div class="layout-main"> 
+       <Main></Main>
+
+      </div>
 </template>
 
 <script>
-// import NavBar from "@/nav/navBar/navBar.vue"
-// import Side from '@/nav/side/side.vue'
-// import Main from '@/nav/main/main.vue'
-// export default {
-//     components:{
-//         NavBar,Side,Main
-//     }
-// }
+import NavBar from "@/nav/navBar/navBar.vue"
+import Side from '@/nav/side/side.vue'
+import Main from '@/nav/main/main.vue'
+// import {useStore} from 'vuex'
+// import {ref} from "vue"
+export default {
+    components:{
+        NavBar,Side,Main
+    },
+   
+}
 </script>
+
+<style lang="scss" scoped>
+
+</style>

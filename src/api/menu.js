@@ -6,7 +6,7 @@
  * @Description: In User Settings Edit
  * @FilePath: \vue3\src\api\menu.js
  */
-export function getRouter (){
+export function getRouter() {
    const data = [
       {
          name: 'one', path: '/one', component: "main", meta: {
@@ -53,7 +53,7 @@ export function getRouter (){
          }
       }
    ]
-   return new Promise((resolve)=>{
+   return new Promise((resolve) => {
       resolve(data)
-   }) 
+   })
 } 

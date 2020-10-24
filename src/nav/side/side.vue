@@ -1,5 +1,5 @@
 <template>
-  <!-- <div class="side-container"> -->
+  <div class="side-container">
     <a-menu
       class="side-nav"
       v-model:openKeys="openKeys"
@@ -9,6 +9,10 @@
       :inline-collapsed="collapsed"
     >
       <div class="logo" @click="toggleCollapsed">LOGO{{ watch_ }}</div>
+
+      <Items v-for="i in routerList" :key="i.name" :routerConfig='i'></Items>
+      <!-- <a-menu-item ></a-menu-item>
+      
       <a-menu-item key="1">
         <span>tu</span>
         <span>Option 1</span>
@@ -47,16 +51,24 @@
           <a-menu-item key="11"> Option 11 </a-menu-item>
           <a-menu-item key="12"> Option 12 </a-menu-item>
         </a-sub-menu>
-      </a-sub-menu>
+      </a-sub-menu> -->
     </a-menu>
-  <!-- </div> -->
+  </div>
 </template>
 
 <script>
+import { useStore } from "vuex";
 import { reactive, ref, toRefs, watch, } from "vue";
+import Items from './item'
 export default {
   name: "Side",
+  components:{
+    Items
+  },
   setup() {
+    const store = useStore()
+
+
     const datas = reactive({
       collapsed: false,
       selectedKeys: ["1"],
@@ -73,7 +85,12 @@ export default {
       datas.collapsed = !datas.collapsed;
       datas.openKeys = datas.collapsed ? [] : datas.preOpenKeys;
     };
-    return { ...toRefs(datas), toggleCollapsed,watch_ };
+
+
+    const routerList = ref('')
+    routerList.value = store.getters.getter_routes;
+    console.log(routerList.value)
+    return { ...toRefs(datas),routerList, toggleCollapsed,watch_ };
   },
 };
 </script>
@@ -82,6 +99,7 @@ export default {
   position: fixed;
   width: 220px;
   height: 100%;
+  z-index: 10;
   
 }
 .side-nav {

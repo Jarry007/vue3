@@ -10,9 +10,9 @@
  */ 
 
 import Side from '@/nav/index.vue'
-const loadView = (view) => { // 路由懒加载
-  return () =>  import(`@/views/${view}`) 
-}
+// const loadView = (view) => { // 路由懒加载
+//   return () =>  import(`@/views/${view}`) 
+// }
 export default  [
    {
       path: '/main',
@@ -38,7 +38,7 @@ export default  [
    // route level code-splitting
    // this generates a separate chunk (about.[hash].js) for this route
    // which is lazy-loaded when the route is visited.
-   component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
+   component: () => import(/* webpackChunkName: "about" */ '../views/main/main.vue'),
    children:[
     {
       path:'one',
@@ -51,31 +51,6 @@ export default  [
     }
    ]
  },
- {
-  name: 'four', path: '/four', component: Side, meta: {
-     title: '四',
-     icon: 'four'
-  }, children: [
-     {
-        name: 'onefirst', path: 'onefirst', meta: {
-           title: '四的第一',
-           icon: 'first'
-        }, component: loadView('four/first/index')
-     },
-     {
-        name: 'onesecond', path: 'onesecond', meta: {
-           title: '四的第二',
-           icon: 'second'
-        }, component: "four/second/index"
-     },
-     {
-        name: 'onethird', path: 'onethird', meta: {
-           title: '四的第三',
-           icon: 'third'
-        }, component: "four/third/index"
-     }
-  ],
-},
  {
    path:'/index',
    name:'Index',
