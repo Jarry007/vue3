@@ -14,18 +14,21 @@ export function getRouter() {
             icon: 'one'
          }, children: [
             {
+               names: '一',
                name: 'onefirst', path: 'onefirst', meta: {
                   title: '壹的第一',
                   icon: 'first'
                }, component: "one/first/index"
             },
             {
+               names: '二',
                name: 'onesecond', path: 'onesecond', meta: {
                   title: '壹的第二',
                   icon: 'second'
                }, component: "one/second/index"
             },
             {
+               names: '三',
                name: 'onethird', path: 'onethird', meta: {
                   title: '壹的第三',
                   icon: 'third'
@@ -39,6 +42,7 @@ export function getRouter() {
             icon: 'two'
          }, children: [
             {
+               names: '一一',
                name: 'twofirst', path: 'twofirst', meta: {
                   title: '贰的第一',
                   icon: 'first'
@@ -47,6 +51,7 @@ export function getRouter() {
          ],
       },
       {
+
          name: 'three', path: '/three', component: "three/index", meta: {
             title: '叁',
             icon: 'three'

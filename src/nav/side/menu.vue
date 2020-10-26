@@ -1,6 +1,6 @@
 <template>
     <a-menu-item :key="router.path" @click="handleClick">
-        {{router.meta?router.meta.title:'无标题'}}
+        {{router.meta?router.meta.title:router.name}}
     </a-menu-item>
 </template>
 
@@ -18,7 +18,6 @@ export default {
     setup(prop){
         const route = useRoute()
         const router = useRouter()
-
         const handleClick = ()=>{
             const path = prop.router.path
 

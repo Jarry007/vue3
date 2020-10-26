@@ -1,37 +1,64 @@
 <template>
-    <component :is="menuType" :router='routerConfig'>
-        <template v-if="routerConfig.children &&routerConfig.children.length">
-            <Items v-for="route in routerConfig.children" :key="route.path" :router='route'>
-                
-            </Items>
-        </template>
-    </component>
+
+    <component :is="menuType" :router="routerConfig">
+         <template v-if="routerConfig.children &&routerConfig.children.length">
+      <Items
+        v-for="route in routerConfig.children"
+        :key="route.name"
+        :routerConfig="route"
+        :test="route.names"
+      >
+      </Items>
+      
+
+    </template>
+  </component>
+      
+
+  
+
+ 
+
+  
 </template>
 
 <script>
-import { onMounted, ref } from 'vue'
-import Menu from './menu'
-import Sub from './sub'
+import { ref } from "vue";
+import Menu from "./menu";
+import Sub from "./sub";
 export default {
-    name:'Items',
-    components:{
-        Menu,Sub
+  name: "Items",
+  components: {
+    Menu,
+    Sub,
+  },
+  props: {
+    routerConfig: {
+      type: Object,
+      required: true,
     },
-    props:{
-        routerConfig:{
-            type:Object,
-            default:()=>{
-                return null
-            }
-        }
+    test: {
+      type: String,
     },
-    setup(prop){
-        const menuType = ref('')
-        onMounted(()=>{
-            menuType.value = prop.routerConfig.children?'Sub':'Menu'
-        })
+  },
+  setup(prop) {
+    const menuType = ref("");
+    // console.log(prop.routerConfig)
+    menuType.value = prop.routerConfig.children ? "Sub" : "Menu";
+    //   console.log("type", menuType.value, prop.test);
+    //   if (prop.routerConfig.children) {
+    //     prop.routerConfig.children.forEach((element) => {
+    //       console.log("item", element);
+    //     });
+    //   }
+ 
+    // onMounted(()=>{
+    //     // console.log('prop', prop.routerConfig.children)
 
-        return {menuType}
-    }
-}
+    // })
+
+
+    return { menuType };
+  },
+};
 </script>

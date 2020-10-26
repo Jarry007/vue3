@@ -7,7 +7,7 @@
  * @FilePath: \vue3\util\utils.js
  */ 
 
-import Side from '@/nav/index'
+import Side from '@/views/main/main'
 
 const deepCopy_ = (obj)=>{
    // console.log(typeof obj)

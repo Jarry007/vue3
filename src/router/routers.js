@@ -20,6 +20,12 @@ export default  [
       // redirect:'/about',
       component:()=>import ('@/views/main/main.vue')
     },
+    {
+      path: '/testt',
+      name: 'testt',
+      // redirect:'/about',
+      component:()=>import ('@/components/test.vue')
+    },
    {
       path: '/',
       name: 'Home',
@@ -41,10 +47,12 @@ export default  [
    component: () => import(/* webpackChunkName: "about" */ '../views/main/main.vue'),
    children:[
     {
+      names:'p',
       path:'one',
       name:'One',
       component:()=>import ('@/views/about/one.vue')
     },{
+      names:'d',
       path:'two',
       name:'Two',
       component:()=>import ('@/views/about/two.vue')

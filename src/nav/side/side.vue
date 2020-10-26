@@ -10,55 +10,14 @@
     >
       <div class="logo" @click="toggleCollapsed">LOGO{{ watch_ }}</div>
 
-      <Items v-for="i in routerList" :key="i.name" :routerConfig='i'></Items>
-      <!-- <a-menu-item ></a-menu-item>
-      
-      <a-menu-item key="1">
-        <span>tu</span>
-        <span>Option 1</span>
-      </a-menu-item>
-      <a-menu-item key="2">
-        <span>Option 2</span>
-      </a-menu-item>
-      <a-menu-item key="3">
-        <span>tu</span>
-        <span>Option 3</span>
-      </a-menu-item>
-      <a-sub-menu key="sub1">
-        <template v-slot:title>
-          <span><span>tu</span> <span>Navigation One</span></span>
-        </template>
-        <a-menu-item key="5">Option 5</a-menu-item>
-        <a-menu-item key="6">Option 6</a-menu-item>
-        <a-menu-item key="7">Option 7</a-menu-item>
-        <a-menu-item key="8">Option 8</a-menu-item>
-        <a-menu-item key="15">Option 5</a-menu-item>
-        <a-menu-item key="16">Option 6</a-menu-item>
-        <a-menu-item key="17">Option 7</a-menu-item>
-        <a-menu-item key="18">Option 8</a-menu-item>
-        <a-menu-item key="25">Option 5</a-menu-item>
-        <a-menu-item key="26">Option 6</a-menu-item>
-        <a-menu-item key="27">Option 7</a-menu-item>
-        <a-menu-item key="28">Option 8</a-menu-item>
-      </a-sub-menu>
-      <a-sub-menu key="sub2">
-        <template v-slot:title>
-          <span><span>tu</span><span>Navigation Two</span></span>
-        </template>
-        <a-menu-item key="9">Option 9</a-menu-item>
-        <a-menu-item key="10">Option 10</a-menu-item>
-        <a-sub-menu key="sub3" title="Submenu">
-          <a-menu-item key="11"> Option 11 </a-menu-item>
-          <a-menu-item key="12"> Option 12 </a-menu-item>
-        </a-sub-menu>
-      </a-sub-menu> -->
+      <Items v-for="i in routerList" :key="i.name" :routerConfig='i' :test='i.name'></Items>
     </a-menu>
   </div>
 </template>
 
 <script>
 import { useStore } from "vuex";
-import { reactive, ref, toRefs, watch, } from "vue";
+import {  reactive, ref, toRefs, watch, } from "vue";
 import Items from './item'
 export default {
   name: "Side",
@@ -88,8 +47,11 @@ export default {
 
 
     const routerList = ref('')
-    routerList.value = store.getters.getter_routes;
-    console.log(routerList.value)
+    // onMounted(()=>{
+      routerList.value = store.getters.getter_routes;
+    console.log('routerList', routerList.value)
+    // })
+    
     return { ...toRefs(datas),routerList, toggleCollapsed,watch_ };
   },
 };
