@@ -7,22 +7,52 @@
  * @FilePath: \vue3\src\views\about\one.vue
 --> 
 <template>
-<div class="about-temp">
-<h2>one one</h2>
+<div>
+   <a-table :columns='columns' :data-source='list'>
+
+      
+   </a-table>
 </div>
 </template>
 
 <script>
+import { ref } from 'vue'
+ const newList=()=>{
+      const data = []
+      for(let i =0;i<50;i++){
+         data.push({
+            key:i,
+            name:`姓名-${i}`,
+            age:i,
+            gender:i%2?'男':'女'
+         })
+      }
+      return data
+   }
+  const newCol=()=>{
+      return [{
+         title:'姓名',
+         dataIndex:'name'
+      },{
+         title:'年龄',
+         dataIndex:'age'
+      },{
+         title:'性别',
+         dataIndex:'gender'
+      }]
+   }
 export default {
+   setup(){
+      const columns = ref('')
+      const list = ref('')
 
+      columns.value = newCol()
+      list.value = newList()
+      return {columns,list}
+   }
+ 
 }
 </script>
 <style lang='scss' scoped>
-.about-temp{
-   width: 200px;
-   height: 200px;
-   position: absolute;
-   top: 50%;
-   left: 50%;
-}
+
 </style>

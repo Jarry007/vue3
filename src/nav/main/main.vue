@@ -26,7 +26,7 @@ export default {
 
 <style lang="scss" scoped>
 .main{
-    width: calc(100% - 5px);
+    width: calc(100% - 10px);
     background: #ddd;
     // margin: 60px 0 0px 220px;
     margin-left: 5px;

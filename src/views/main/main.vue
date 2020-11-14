@@ -1,11 +1,13 @@
 <template>
 
-       <NavBar></NavBar>
+
 
        <Side ></Side>
 
+    
+      <div class="layout-mains"> 
+       <NavBar></NavBar>
 
-      <div class="layout-main"> 
        <Main></Main>
 
       </div>
@@ -26,5 +28,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.layout-mains{
+    width: calc(100vw - 220px);
+    position: fixed;
+    top: 0;
+    right: 0;
+}
 </style>

@@ -5,12 +5,19 @@
       v-model:openKeys="openKeys"
       v-model:selectedKeys="selectedKeys"
       mode="inline"
-      theme="dark"
+      :theme="theme"
       :inline-collapsed="collapsed"
     >
       <div class="logo" @click="toggleCollapsed">LOGO{{ watch_ }}</div>
 
       <Items v-for="i in routerList" :key="i.name" :routerConfig='i' :test='i.name'></Items>
+    
+      <div class="foot">
+        <a-switch  default-checked
+      checked-children="暗"
+      un-checked-children="亮"
+      @change="changeTheme"/>
+        </div> 
     </a-menu>
   </div>
 </template>
@@ -52,7 +59,14 @@ export default {
     console.log('routerList', routerList.value)
     // })
     
-    return { ...toRefs(datas),routerList, toggleCollapsed,watch_ };
+  /**
+   *  这里控制侧边栏的主题 changeTheme
+   */
+    const theme = ref('dark')
+    const changeTheme = (e)=>{
+      theme.value = e?'dark':'light'
+    }
+    return { theme,changeTheme,...toRefs(datas),routerList, toggleCollapsed,watch_ };
   },
 };
 </script>
@@ -80,6 +94,14 @@ export default {
     text-align: center;
     height: 50px;
     line-height: 50px;
+  }
+
+  .foot{
+    position: absolute;
+    bottom: 20px;
+    // width: 100%;
+    // background: orange;
+    left: 0;
   }
   // background: rgb(85, 181, 147);
 }

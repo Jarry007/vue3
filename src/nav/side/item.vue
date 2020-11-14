@@ -1,12 +1,13 @@
 <template>
 
-    <component :is="menuType" :router="routerConfig">
+    <component v-if="!routerConfig.hidden" :is="menuType" :router="routerConfig" >
          <template v-if="routerConfig.children &&routerConfig.children.length">
       <Items
         v-for="route in routerConfig.children"
         :key="route.name"
         :routerConfig="route"
         :test="route.names"
+        :parentPath='routerConfig.path'
       >
       </Items>
       
@@ -43,19 +44,8 @@ export default {
   },
   setup(prop) {
     const menuType = ref("");
-    // console.log(prop.routerConfig)
-    menuType.value = prop.routerConfig.children ? "Sub" : "Menu";
-    //   console.log("type", menuType.value, prop.test);
-    //   if (prop.routerConfig.children) {
-    //     prop.routerConfig.children.forEach((element) => {
-    //       console.log("item", element);
-    //     });
-    //   }
- 
-    // onMounted(()=>{
-    //     // console.log('prop', prop.routerConfig.children)
-
-    // })
+    // if(prop.routerConfig.hidden) return
+    menuType.value = prop.routerConfig.children &&prop.routerConfig.children.length>1 ? "Sub" : "Menu";
 
 
     return { menuType };

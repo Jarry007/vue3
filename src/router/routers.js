@@ -9,7 +9,7 @@
  * @FilePath: \project\src\router\routers.js
  */ 
 
-import Side from '@/nav/index.vue'
+import Side from '@/views/main/main.vue'
 // const loadView = (view) => { // 路由懒加载
 //   return () =>  import(`@/views/${view}`) 
 // }
@@ -23,8 +23,16 @@ export default  [
     {
       path: '/testt',
       name: 'testt',
+      component:Side,
+      children:[
+        {
+          name:"test",
+          path:'',
+          component:()=>import ('@/components/test.vue')
+        }
+      ]
       // redirect:'/about',
-      component:()=>import ('@/components/test.vue')
+      
     },
    {
       path: '/',
@@ -44,15 +52,13 @@ export default  [
    // route level code-splitting
    // this generates a separate chunk (about.[hash].js) for this route
    // which is lazy-loaded when the route is visited.
-   component: () => import(/* webpackChunkName: "about" */ '../views/main/main.vue'),
+   component: Side,
    children:[
     {
-      names:'p',
       path:'one',
       name:'One',
       component:()=>import ('@/views/about/one.vue')
     },{
-      names:'d',
       path:'two',
       name:'Two',
       component:()=>import ('@/views/about/two.vue')
@@ -62,11 +68,28 @@ export default  [
  {
    path:'/index',
    name:'Index',
-   component:()=> import ('../views/index.vue')
+   component:Side,
+   children:[
+     {
+       path:'',
+       name:'index',
+       meta:{title:'首页'},
+       component:()=> import ('../views/index.vue')
+     }
+   ]
  },
  {
    path:'/posts',
    name:'Posts',
-   component:()=>import('../views/posts.vue')
+   component:Side,
+   children:[
+     {
+       path:'',
+       name:'post',
+       meta:{title:'文章页'},
+       component:()=>import('../views/posts.vue')
+     }
+   ]
+   
  }
  ]

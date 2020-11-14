@@ -29,6 +29,7 @@ export function getRouter() {
             },
             {
                names: '三',
+               hidden:true,
                name: 'onethird', path: 'onethird', meta: {
                   title: '壹的第三',
                   icon: 'third'
