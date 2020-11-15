@@ -34,7 +34,7 @@ export const coverRouter = (data)=>{
       if(item.component){
         if(item.component === 'main'){
           //组件为 main 代表是展示在侧边栏的，只可折叠，不进路由跳转
-          item.meta.title += '侧边'
+          // item.meta.title += '侧边'
           // item.component = (resolve)=> require(['@/nav/index'],resolve)
           
           item.component = Side

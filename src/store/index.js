@@ -25,7 +25,7 @@ export default Vuex.createStore({
   mutations: {
     setToken(state, token){
       if(token){
-        console.log('setToken',token)
+        // console.log('setToken',token)
       state.token.token = token.token
       state.token.role = token.role
       }

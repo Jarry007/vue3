@@ -1,7 +1,7 @@
 <template>
     <a-sub-menu :key="router.path">
         <template v-slot:title>
-            <span>sub - {{router.meta?router.meta.title:router.name}}</span>
+            <span>{{router.meta?router.meta.title:router.name}}</span>
         </template>
 
         <slot></slot>

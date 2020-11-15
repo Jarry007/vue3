@@ -27,10 +27,12 @@ export default {
         
         const handleClick = ()=>{
             const path = prop.parentPath?prop.parentPath+"/"+ prop.router.path: prop.router.path
-
+            console.log([prop])
             // 这里先不去判断是不是外链，也不去检验是不是又点击了一下
+            console.log('routePath',route.path)
             if(route.path !== path){
                 router.push(path)
+
             }
             // const message = inject('')
             message.success(path)

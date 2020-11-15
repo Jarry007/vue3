@@ -6,7 +6,6 @@
         v-for="route in routerConfig.children"
         :key="route.name"
         :routerConfig="route"
-        :test="route.names"
         :parentPath='routerConfig.path'
       >
       </Items>
@@ -45,7 +44,7 @@ export default {
   setup(prop) {
     const menuType = ref("");
     // if(prop.routerConfig.hidden) return
-    menuType.value = prop.routerConfig.children &&prop.routerConfig.children.length>1 ? "Sub" : "Menu";
+    menuType.value = prop.routerConfig.children &&prop.routerConfig.children.length? "Sub" : "Menu";
 
 
     return { menuType };

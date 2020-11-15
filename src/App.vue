@@ -47,6 +47,7 @@ $black: rgb(60, 67, 75);
 $darkg: #394c5d;
 
 $bheight: 6.25rem;
+
 .temporary-block {
   width: 12.5rem;
   position: fixed;

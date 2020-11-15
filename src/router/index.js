@@ -9,7 +9,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import routes from './routers'
 import store from '@/store'
-import { getToken } from '@/libs/util'
+import { getToken,getRole } from '@/libs/util'
 import config from '@/config'
 const {homeName ,loginName} = config
 const router = createRouter({
@@ -24,6 +24,7 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
   const token = getToken()
+  const role = getRole()
   if (!token && to.name !== loginName) {
  
     next({
@@ -41,7 +42,8 @@ router.beforeEach(async (to, from, next) => {
     //有token,并且跳转的页面不是登录页
     if(!store.getters.getter_routes.length){
       try {
-        let res = await store.dispatch('requestRouter')
+        let _role = role  //如果有后端的话从数据库拿
+        let res = await store.dispatch('requestRouter',_role)
         router.addRoute(...res)
         next({ ...to, replace: true })
         // next() //此时还没有挂载成功,刷新之后会消失

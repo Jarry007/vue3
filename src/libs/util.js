@@ -24,3 +24,10 @@ export const getToken = ()=>{
    return false
 }
 
+export const getRole = ()=>{
+   const role = Cookies.get(roleLable)
+   // console.log('getToken',token)
+   if(role) return role
+   return false
+}
+

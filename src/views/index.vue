@@ -1,6 +1,6 @@
 <template >
   <div>
-    <NavBar></NavBar>
+    <!-- <NavBar></NavBar> -->
     <h2 class="test" v-hasRole="['user']">这注定是一个与众不同的时刻</h2>
     <!-- <CountTo :end='23'></CountTo> -->
     <div class="list">
@@ -61,14 +61,14 @@ import { reactive, toRefs, onMounted, ref } from "vue";
 import {useStore } from 'vuex'
 // import CountTo from "./countup.vue"
 import Danmu from "../components/Danmu.vue";
-import NavBar from "../nav/navBar/navBar.vue"
+// import NavBar from "../nav/navBar/navBar.vue"
 import Tips from "@/components/tips.vue";
 import {useRouter} from 'vue-router'
 export default {
   components: {
     Danmu,
     Tips,
-    NavBar
+    // NavBar
     // CountTo  
   },
   setup() {

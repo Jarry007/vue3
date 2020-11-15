@@ -10,7 +10,7 @@
     >
       <div class="logo" @click="toggleCollapsed">LOGO{{ watch_ }}</div>
 
-      <Items v-for="i in routerList" :key="i.name" :routerConfig='i' :test='i.name'></Items>
+      <Items v-for="i in routerList" :key="i.name" :routerConfig='i' ></Items>
     
       <div class="foot">
         <a-switch  default-checked

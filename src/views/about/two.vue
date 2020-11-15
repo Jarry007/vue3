@@ -7,23 +7,41 @@
  * @FilePath: \vue3\src\views\about\two.vue
 --> 
 <template>
-<div class="about-temp">
-<h2>two two </h2>
-</div>
+  <div>
+    <div class="btn-title">
+      <a-button type="primary">新增权限</a-button>
+    </div>
+
+    <div>
+       <a-table :columns='columns' :data-source='list'>
+
+       </a-table>
+    </div>
+  </div>
 </template>
 
 <script>
-export default {
+import { ref } from 'vue';
+import { useStore } from "vuex";
 
-}
+export default {
+   setup(){
+      const store = useStore()
+      const columns = ref('')
+      const list = ref('')
+
+      columns.value = [{title:'name',dataIndex:'name'},{title:'key',dataIndex:'key'},{title:'描述',dataIndex:'desc'},]
+      list.value = store.getters.getter_routes
+
+      console.log('路由列表',list.value)
+
+      return {columns,list}
+   }
+};
 </script>
 <style lang='scss' scoped>
-.about-temp{
-   width: 200px;
-   height: 200px;
-   position: absolute;
-   top: 50%;
-   left: 50%;
-   background: aliceblue;
+.btn-title{
+   padding: 20px 0;
+  text-align: left;
 }
 </style>

@@ -6,7 +6,7 @@
  * @Description: In User Settings Edit
  * @FilePath: \vue3\src\store\router.js
  */ 
-import {getRouter} from  '@/api/menu'
+import {getUserRouter,getAdminRouter} from  '@/api/menu'
 
 import {coverRouter} from "../../util/utils"
 import commonRouter from '@/router/routers'
@@ -23,14 +23,24 @@ const routePermission = {
       }
    },
    actions:{
-      requestRouter({commit}){
+      requestRouter({commit},role){
          return new Promise ((resolve)=>{
-            getRouter().then(res=>{
+            if(role==='admin'){
+               getAdminRouter().then(res=>{
                let routeRes = coverRouter(res)
                commit('setRouter',routeRes)
                console.log('路由加载完毕',routeRes)
                resolve(routeRes)
-            })
+               })
+            }else{
+               getUserRouter().then(res=>{
+                  let routeRes = coverRouter(res)
+                  commit('setRouter',routeRes)
+                  console.log('路由加载完毕',routeRes)
+                  resolve(routeRes)
+               })
+            }
+            
          })
       }
    }

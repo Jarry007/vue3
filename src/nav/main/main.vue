@@ -26,12 +26,15 @@ export default {
 
 <style lang="scss" scoped>
 .main{
-    width: calc(100% - 10px);
-    background: #ddd;
+    width: calc(100% - 5px);
+    // background: #ddd;
     // margin: 60px 0 0px 220px;
-    margin-left: 5px;
+    // margin-left: 5px;
+    padding: 20px;
     // height: 100vh;
+    text-align: left;
     position: relative;
-    min-height: calc(100vh - 60px);
+    overflow-y: scroll;
+    height: calc(100vh - 60px);
 }
 </style>
