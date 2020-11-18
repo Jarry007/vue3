@@ -38,16 +38,41 @@
         </template>
 
         <template #handler="{ record }">
-          <a-button type="link">删除-{{ record.name }} </a-button>
+          <a-button type="link">删除</a-button>
           <a-button
             @click="configIt(record)"
             type="link"
             v-if="record.key !== 'admin'"
-            >配置{{ record.key }}</a-button>
+            >配置</a-button>
+          <a-modal v-model:visible="showEdit" title="新增权限" @ok="editOk">
+            <a-form ref="configForm" :model="config" :rules="rule">
+              <a-form-item label="名称" name="name">
+                <a-input
+                  v-model:value="config.name"
+                  placeholder="请输入名称"
+                ></a-input>
+              </a-form-item>
+              <a-form-item label="key值" name="key">
+                <a-input
+                  v-model:value="config.key"
+                  placeholder="请输入key值"
+                ></a-input>
+              </a-form-item>
+
+              <a-form-item label="描述" name="desc">
+                <a-input
+                  v-model:value="config.desc"
+                  placeholder="请填写描述"
+                ></a-input>
+              </a-form-item>
+
+              <a-form-item label="权限" name="tree">
+                <a-tree checkable :tree-data="menuList"> </a-tree>
+              </a-form-item>
+            </a-form>
+          </a-modal>
         </template>
       </a-table>
-
-      <a-tree checkable :tree-data="menuList"> </a-tree>
     </div>
   </div>
 </template>
@@ -56,6 +81,7 @@
 import { reactive, ref, toRefs } from "vue";
 import { useStore } from "vuex";
 import { message } from "ant-design-vue";
+import { _router2tree } from "../../../util/utils";
 export default {
   setup() {
     const store = useStore();
@@ -69,16 +95,14 @@ export default {
       { title: "描述", dataIndex: "desc" },
       { title: "操作", slots: { customRender: "handler" } },
     ];
-    menuList.value = store.getters.getter_routes;
+    menuList.value = _router2tree(store.getters.getter_routes);
     list.value = [
       { name: "管理员", key: "admin", desc: "管理员，默认拥有所有的权限" },
       { name: "用户", key: "user", desc: "用户的权限可配置" },
     ];
-    console.log("路由列表", list.value);
+    console.log("tree", menuList.value);
+    // console.log(_router2tree(store.getters.getter_routes))
 
-    const configIt = (row) => {
-      console.log("config", row);
-    };
 
     // 添加权限
     const showAdd = ref(false);
@@ -87,8 +111,8 @@ export default {
     };
     const addOk = () => {
       addform.value.validate().then(() => {
-         // console.log(_add.form)
-         list.value.push(_add.form)
+        // console.log(_add.form)
+        list.value.push(_add.form);
         addNew();
         message.success("添加成功");
       });
@@ -101,7 +125,34 @@ export default {
       form: {},
     });
     const addform = ref(null);
+
+    // 配置，编辑
+
+    const config = ref("");
+    const configForm = ref(null);
+    const showEdit = ref(false);
+
+    config.value = {};
+
+    const configIt = (row) => {
+      showEdit.value = !showEdit.value;
+      config.value = row;
+      console.log("config", row);
+    };
+
+    const editOk = () => {
+      configForm.value.validate().then(() => {
+        // console.log(_add.form)
+        //  list.value.push(_add.form)
+        showEdit.value = false;
+        message.success("编辑成功");
+      });
+    };
     return {
+      config,
+      configForm,
+      showEdit,
+      editOk,
       addform,
       ...toRefs(_add),
       addOk,

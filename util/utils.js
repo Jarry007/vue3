@@ -8,6 +8,7 @@
  */ 
 
 import Side from '@/views/main/main'
+// import router from '../src/router'
 
 const deepCopy_ = (obj)=>{
    // console.log(typeof obj)
@@ -55,6 +56,43 @@ export const coverRouter = (data)=>{
 
 export const loadView = (view) => { // 路由懒加载
   return () =>  import(`@/views/${view}`) 
+}
+
+export function router2tree(route,parentPath){
+  
+  const res = Array.from(route,item=>{
+    if(!item.common){
+
+      // console.log('meta',item)
+      item.title = item.meta.title || item.name
+      item.key = parentPath?parentPath+ item.path:item.path
+      if(item.children && item.children.length){
+        item.children = router2tree(item.children,item.key)
+      }
+      if(item.meta) delete item.meta
+      if(item.component) delete item.component
+      if(item.name) delete item.name
+    }
+
+      return item
+  })
+
+
+  return res
+}
+
+export function _router2tree(route_,parentPath){
+  const ary = []
+  for(let i =0;i<route_.length;i++){
+    if(route_[i].common) continue
+    const obj = {
+      title:route_[i].meta.title || 'name',
+      key:parentPath?parentPath+route_[i].path:route_[i].path,
+    }
+    if(route_[i].children && route_[i].children.length) obj.children = _router2tree(route_[i].children,obj.key)
+    ary.push(obj)
+  }
+  return ary
 }
 
 

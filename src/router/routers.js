@@ -18,11 +18,13 @@ export default [
     path: '/login',
     name: 'Login',
     hidden: true,
+    common:true,
     component: () => import('@/views/login.vue')
   },
   {
     path: '/404',
     name: '404',
+    common:true,
     // component: Side,
     hidden: true,
     component: () => import('@/views/error/404.vue')
@@ -30,6 +32,7 @@ export default [
   {
     path: '/500',
     name: '500',
+    common:true,
     // component: Side,
     hidden: true,
     component: () => import('@/views/error/500.vue')

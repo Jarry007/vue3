@@ -9,7 +9,7 @@
 export function getAdminRouter() {
    const data = [
       {
-         name: 'one', path: '/one', component: "main", meta: {
+         name: 'one', path: '/one', component: "main",key:'one', meta: {
             title: '管理员菜单',
             icon: 'one'
          }, children: [
@@ -17,18 +17,18 @@ export function getAdminRouter() {
                name: 'onefirst', path: 'onefirst', meta: {
                   title: 'xx管理',
                   icon: 'first'
-               }, component: "one/first/index"
+               }, component: "one/first/index",key:'oneonefirst'
             },
             {
                name: 'onesecond', path: 'onesecond', meta: {
                   title: 'yy管理',
                   icon: 'second'
-               }, component: "one/second/index"
+               }, component: "one/second/index",key:'oneonesecond'
             }
          ],
       },
       {
-         name: 'two', path: '/two', component: "main", meta: {
+         name: 'two', path: '/two', component: "main",key:'two', meta: {
             title: '用户菜单',
             icon: 'two'
          }, children: [
@@ -36,13 +36,13 @@ export function getAdminRouter() {
                name: 'twofirst', path: 'twofirst', meta: {
                   title: 'aa管理',
                   icon: 'first'
-               }, component: "two/first/index"
+               }, component: "two/first/index",key:"twotwofirst"
             },
             {
                name: 'twosecond', path: 'twosecond', meta: {
                   title: 'bb管理',
                   icon: 'second'
-               }, component: "two/first/index"
+               }, component: "two/first/index",key:"twotwosecond"
             }
          ],
       }
@@ -57,24 +57,24 @@ export function getUserRouter() {
       // {
       //    name: 'one', path: '/one', component: "main", meta: {
       //       title: '管理员菜单',
-      //       icon: 'one'
+      //       icon: 'one',key:'one'
       //    }, children: [
       //       {
       //          name: 'onefirst', path: 'onefirst', meta: {
       //             title: 'xx管理',
       //             icon: 'first'
-      //          }, component: "one/first/index"
+      //          }, component: "one/first/index",key:'oneonefirst'
       //       },
       //       {
       //          name: 'onesecond', path: 'onesecond', meta: {
       //             title: 'yy管理',
       //             icon: 'second'
-      //          }, component: "one/second/index"
+      //          }, component: "one/second/index",key:'oneonesecond'
       //       }
       //    ],
       // },
       {
-         name: 'two', path: '/two', component: "main", meta: {
+         name: 'two', path: '/two', component: "main",key:'two', meta: {
             title: '用户菜单',
             icon: 'two'
          }, children: [
@@ -82,13 +82,13 @@ export function getUserRouter() {
                name: 'twofirst', path: 'twofirst', meta: {
                   title: 'aa管理',
                   icon: 'first'
-               }, component: "two/first/index"
+               }, component: "two/first/index",key:"twotwofirst"
             },
             {
                name: 'twosecond', path: 'twosecond', meta: {
                   title: 'bb管理',
                   icon: 'second'
-               }, component: "two/first/index"
+               }, component: "two/first/index",key:"twotwosecond"
             }
          ],
       }
