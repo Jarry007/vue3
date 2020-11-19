@@ -11,7 +11,15 @@
       </template>
 
       <template #handler="{ record, index }">
-        <a-button type="link">删除</a-button>
+        <a-popconfirm
+          placement="leftBottom"
+          ok-text="确定"
+          cancel-text="取消"
+          @confirm="confirmDel(record)"
+        >
+          <template #title> 确定删除吗？ </template>
+          <a-button type="link">删除</a-button>
+        </a-popconfirm>
         <a-button type="link" @click="resetIt(record)">修改</a-button>
         <a-modal
           v-model:visible="showModal"
@@ -59,6 +67,27 @@ import { message } from "ant-design-vue";
 
 import { getRole } from "@/libs/util";
 import { getAdminRouter, getUserRouter } from "@/api/menu.js";
+const addMenuId = (list, parId = "") => {
+  let count = 1;
+  list.forEach((item) => {
+    item.menuId = coverId(parId, count);
+    if (item.children && item.children.length) {
+      addMenuId(item.children, item.menuId);
+    }
+    count++;
+  });
+
+  return list;
+};
+
+const coverId = (p, i) => {
+  return [p, i].map((item) => fixBefore(item)).join("");
+};
+
+const fixBefore = (num) => {
+  if (num === "") return;
+  return num < 10 && num.toString().length < 2 ? "0" + num : num;
+};
 export default {
   setup() {
     // const store = useStore()
@@ -84,6 +113,7 @@ export default {
       console.log("身份", role);
       datas.menuList =
         role === "admin" ? await getAdminRouter() : await getUserRouter();
+      datas.menuList = addMenuId(datas.menuList);
       console.log("菜单", datas.menuList);
     });
     // datas.menuList = store.getters.getter_routes
@@ -92,7 +122,8 @@ export default {
     const showModal = ref(false);
 
     const resetIt = (row) => {
-      console.log(row);
+      datas.form = { meta: {} };
+
       showModal.value = !showModal.value;
       datas.form = row;
     };
@@ -100,34 +131,50 @@ export default {
     // 新增
     const parentIndex = ref("");
     const addNew = (index) => {
+      datas.form = { meta: {} };
       showModal.value = !showModal.value;
       parentIndex.value = index;
-      console.log("index", index);
     };
 
     //确定
     const addform = ref(null);
     const addOk = () => {
-      // message.success(parentIndex.value !==''? "添加成功":'修改成功');
-
       addform.value.validate().then(() => {
         datas.form.key =
           parentIndex.value !== ""
             ? datas.menuList[parentIndex.value].key
             : datas.form.name;
-        console.log("表单", datas.form);
+
         if (parentIndex.value !== "") {
           const parentRow = datas.menuList[parentIndex.value];
           parentRow.children.push(datas.form);
+        } else {
+          console.log("修改表单", datas.form);
         }
-        message.success(parentIndex.value !== "" ? "添加成功" : "修改成功");
+        message.success(datas.form.menuId ? "修改成功" : "添加成功");
 
         parentIndex.value = "";
         showModal.value = false;
       });
     };
 
-    return { addform, addNew, addOk, ...toRefs(datas), resetIt, showModal };
+    const confirmDel = (row) => {
+      if (row.children && row.children.length) {
+        return message.error("请先删除子节点");
+      }
+      message.success("删除成功");
+    };
+
+    return {
+      confirmDel,
+      parentIndex,
+      addform,
+      addNew,
+      addOk,
+      ...toRefs(datas),
+      resetIt,
+      showModal,
+    };
   },
 };
 </script>
