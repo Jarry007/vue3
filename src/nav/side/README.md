@@ -21,7 +21,7 @@
  ### `sub.vue` --- 折叠菜单
     | 参数 | 说明 |  类型 | 
     |----- |------|-------|
-    | | | |
+    | |  |  |
     | popupClassName | 子菜单样式 | string |
     |disabled|是否禁用|boolean|
     |key|唯一标志|string|
@@ -34,4 +34,10 @@
     使用 `component` 中的 `is` 判断是折叠菜单还是子菜单
 
  ### `side.vue` --- 侧边栏整体
+
+ 这里可以判断其 `children` 的 `length` 去直接跳转还是折叠展开
+
+ 如果
+ 
+
 

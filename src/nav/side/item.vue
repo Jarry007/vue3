@@ -1,25 +1,15 @@
 <template>
-
-    <component v-if="!routerConfig.hidden" :is="menuType" :router="routerConfig" >
-         <template v-if="routerConfig.children &&routerConfig.children.length">
+  <component v-if="!routerConfig.hidden" :is="menuType" :router="routerConfig">
+    <template v-if="routerConfig.children && routerConfig.children.length">
       <Items
         v-for="route in routerConfig.children"
         :key="route.name"
         :routerConfig="route"
-        :parentPath='routerConfig.path'
+        :parentPath="routerConfig.path"
       >
       </Items>
-      
-
     </template>
   </component>
-      
-
-  
-
- 
-
-  
 </template>
 
 <script>
@@ -44,8 +34,10 @@ export default {
   setup(prop) {
     const menuType = ref("");
     // if(prop.routerConfig.hidden) return
-    menuType.value = prop.routerConfig.children &&prop.routerConfig.children.length? "Sub" : "Menu";
-
+    menuType.value =
+      prop.routerConfig.children && prop.routerConfig.children.length
+        ? "Sub"
+        : "Menu";
 
     return { menuType };
   },

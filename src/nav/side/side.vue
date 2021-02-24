@@ -6,9 +6,10 @@
       v-model:selectedKeys="selectedKeys"
       mode="inline"
       :theme="theme"
+
       :inline-collapsed="collapsed"
     >
-      <div class="logo" @click="toggleCollapsed">LOGO{{ watch_ }}</div>
+      <div class="logo">LOGO</div>
 
       <Items v-for="i in routerList" :key="i.name" :routerConfig='i' ></Items>
     
@@ -24,7 +25,7 @@
 
 <script>
 import { useStore } from "vuex";
-import {  reactive, ref, toRefs, watch, } from "vue";
+import {  computed, reactive, ref, toRefs, } from "vue";
 import Items from './item'
 export default {
   name: "Side",
@@ -36,21 +37,22 @@ export default {
 
 
     const datas = reactive({
-      collapsed: false,
+      // collapsed: false,
       selectedKeys: ["1"],
       openKeys: ["sub1"],
       preOpenKeys: ["sub1"],
     });
-    const watch_ = ref('p')
-    watch(datas.collapsed, (val_) => {
-      console.log('监听', val_);
-      datas.preOpenKeys = val_;
-    });
-    const toggleCollapsed = () => {
-        watch_.value = Math.random()
-      datas.collapsed = !datas.collapsed;
-      datas.openKeys = datas.collapsed ? [] : datas.preOpenKeys;
-    };
+    const collapsed = computed(()=>store.getters.sidebar)
+    // const watch_ = ref('p')
+    // watch(datas.collapsed, (val_) => {
+    //   console.log('监听', val_);
+    //   datas.preOpenKeys = val_;
+    // });
+    // const toggleCollapsed = () => {
+    //     watch_.value = Math.random()
+    //   // datas.collapsed = store.getters.sidebar;
+    //   datas.openKeys = datas.collapsed ? [] : datas.preOpenKeys;
+    // };
 
 
     const routerList = ref('')
@@ -66,7 +68,7 @@ export default {
     const changeTheme = (e)=>{
       theme.value = e?'dark':'light'
     }
-    return { theme,changeTheme,...toRefs(datas),routerList, toggleCollapsed,watch_ };
+    return { theme,changeTheme,...toRefs(datas),routerList,collapsed };
   },
 };
 </script>

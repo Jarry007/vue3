@@ -11,18 +11,18 @@ export function getAdminRouter() {
       {
          name: 'one', path: '/one', component: "main",key:'one', meta: {
             title: '管理员菜单',
-            icon: 'one'
+            icon: 'icon-zaixian'
          }, children: [
             {
                name: 'onefirst', path: 'onefirst', meta: {
                   title: 'xx管理',
-                  icon: 'first'
+                  icon: 'icon-pingjiacishu'
                }, component: "one/first/index",key:'oneonefirst'
             },
             {
                name: 'onesecond', path: 'onesecond', meta: {
                   title: 'yy管理',
-                  icon: 'second'
+                  icon: 'icon-weixin'
                }, component: "one/second/index",key:'oneonesecond'
             }
          ],
@@ -30,18 +30,18 @@ export function getAdminRouter() {
       {
          name: 'two', path: '/two', component: "main",key:'two', meta: {
             title: '用户菜单',
-            icon: 'two'
+            icon: 'icon-queshui'
          }, children: [
             {
                name: 'twofirst', path: 'twofirst', meta: {
                   title: 'aa管理',
-                  icon: 'first'
+                  icon: 'icon-huabanfuben'
                }, component: "two/first/index",key:"twotwofirst"
             },
             {
                name: 'twosecond', path: 'twosecond', meta: {
                   title: 'bb管理',
-                  icon: 'second'
+                  icon: 'icon-money'
                }, component: "two/first/index",key:"twotwosecond"
             }
          ],

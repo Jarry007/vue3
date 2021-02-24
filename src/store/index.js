@@ -9,6 +9,7 @@
 import Vuex from 'vuex'
 import {setTokens} from '@/libs/util'
 import routePermission from "./router" 
+import client from './client'
 import getters from './getter'
 export default Vuex.createStore({
   state: {
@@ -18,6 +19,9 @@ export default Vuex.createStore({
     token:{
       token:'',
       role:''
+    },
+    sidebar:{
+      open:false
     },
     temporary:[]
     // temporary:[{title:'关于前端架构的那些事',id:1,author:'Jarry007'}]
@@ -58,7 +62,8 @@ export default Vuex.createStore({
 
   },
   modules: {
-    routePermission
+    routePermission,
+    client
   },
   getters
 });

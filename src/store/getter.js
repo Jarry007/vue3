@@ -8,7 +8,8 @@
  */ 
 const getters = {
    token:state=>state.token.role,
-   getter_routes:state=>state.routePermission.router
+   getter_routes:state=>state.routePermission.router,
+   sidebar:state=>state.client.sidebar.open
 }
 
 export default getters

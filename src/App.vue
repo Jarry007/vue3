@@ -108,6 +108,7 @@ $bheight: 6.25rem;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+  width: 100%;
 }
 .dark {
   background: $black;
