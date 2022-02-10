@@ -17,7 +17,7 @@
     "less-loader": "^7.0.2",
     "mockjs": "^1.1.0",
     "mysql": "^2.18.1",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "sass-loader": "^8.0.2",
     "vue": "^3.0.2",
     "vue-router": "^4.0.0-alpha.13",
